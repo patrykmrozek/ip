@@ -1,6 +1,3 @@
-import javax.swing.*;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Scanner;
 
 public class Zoro {
@@ -55,12 +52,16 @@ public class Zoro {
         String user_input = scanner.nextLine().trim().toLowerCase();
         switch (user_input) {
             case "echo":
+            case "1":
                 ZoroState = State.ECHO;
                 break;
             case "list":
+            case "2":
+            case "store list":
                 ZoroState = State.LIST;
                 break;
             case "exit":
+            case "bye":
                 ZoroState = State.EXIT;
                 break;
             default:
@@ -129,7 +130,7 @@ public class Zoro {
         System.out.println("________________________");
         System.out.println("Hello, I'm " + name + " - I think I'm lost..");
         System.out.println("What can I do for you?");
-        System.out.println("1: echo\n2: store list\nmore features coming soon!");
+        System.out.println("1: echo\n2: store list\nmore features coming soon!\n\"exit\" to exit");
         System.out.println("________________________\n");
     }
 
