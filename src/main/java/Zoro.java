@@ -31,15 +31,22 @@ public class Zoro {
         String[] user_list = new String[100];
         int user_list_index = 0;
         userInput = scanner.nextLine();
-        while (!(userInput.toLowerCase().equals("list"))) {
-            user_list[user_list_index] = userInput;
-            user_list_index++;
-            System.out.println("Added {" + userInput + "} to your list");
-            userInput = scanner.nextLine();
+        while (!(userInput.toLowerCase().equals("bye"))) {
+            if (userInput.toLowerCase().equals("list")) {
+                for (int i = 0; i < user_list_index; i++) {
+                    System.out.println(i + ":" + user_list[i]);
+                }
+                userInput = scanner.nextLine();
+            } else {
+                user_list[user_list_index] = userInput;
+                user_list_index++;
+                System.out.println("Added {" + userInput + "} to your list");
+                userInput = scanner.nextLine();
+            }
         }
-        for (int i = 0; i < user_list_index; i++) {
-            System.out.println(i + ":" + user_list[i]);
-        }
+        System.out.println("Goodbye - see you soon");
+
+
     }
     public static void main(String[] args) {
         printIntro();
