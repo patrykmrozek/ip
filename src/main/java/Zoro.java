@@ -4,6 +4,12 @@ import java.util.Map;
 import java.util.Scanner;
 
 public class Zoro {
+
+
+    //STATE IMPLEMEMTATION
+
+
+
     public enum State { //enum to keep track of state
         MENU,
         ECHO,
@@ -12,10 +18,106 @@ public class Zoro {
     }
 
     protected static State ZoroState = State.MENU;
+    private static final Scanner scanner = new Scanner(System.in);
+
+    public void run() { //the only function that has to be run in main
+        while (ZoroState != State.EXIT) {
+            handleState(ZoroState);
+        }
+    }
+
+    //handles every state
+    public static void handleState(State state) {
+        switch (state) {
+            case MENU:
+                menu();
+                break;
+            case ECHO:
+                echo();
+                break;
+            case LIST:
+                storeList();
+                break;
+            default:
+                ZoroState = State.MENU;
+                break;
+        }
+    }
+
+
+
+    // MAIN PUBLIC FUNCTIONS
+
+
 
     public static void menu() {
         _printIntro();
+        String user_input = scanner.nextLine().trim().toLowerCase();
+        switch (user_input) {
+            case "echo":
+                ZoroState = State.ECHO;
+                break;
+            case "list":
+                ZoroState = State.LIST;
+                break;
+            case "exit":
+                ZoroState = State.EXIT;
+                break;
+            default:
+                System.out.println("Invalid input");
+        }
+
     }
+
+    public static void echo() {
+        System.out.println("Echo activated!\nType something and I will echo it!\nType \"bye\" to exit!");
+        while (ZoroState ==  State.ECHO) {
+            String user_input = scanner.nextLine();
+            switch (user_input) {
+                case "bye":
+                    ZoroState = State.EXIT;
+                    break;
+                case "menu":
+                    ZoroState = State.MENU;
+                    break;
+                default:
+                    System.out.println(user_input);
+            }
+        }
+    }
+
+    public static void storeList() {
+        System.out.println("Storing a list for you!\nType something and I will store it.\nType \"list\" to see what you stored\nType \"mark [x]\" and I will mark/unmark the task at index [x].\nType \"bye\" to exit!");
+        Task[] task_list = new Task[100];
+        int task_list_index = 0;
+        while (ZoroState == State.LIST) {
+            String user_input = scanner.nextLine();
+            switch (user_input.toLowerCase().split(" ")[0]) {
+                case "list":
+                    _printList(task_list, task_list_index);
+                    break;
+                case "mark":
+                    _markTask(task_list, task_list_index, user_input);
+                    break;
+                case "menu":
+                    ZoroState = State.MENU;
+                    break;
+                case "bye":
+                    ZoroState = State.EXIT;
+                    break;
+                default:
+                    _addTaskToList(task_list, user_input, task_list_index);
+                    task_list_index++;
+            }
+        }
+        System.out.println("Goodbye! - see you soon");
+    }
+
+
+
+    //PRIVATE HELPER FUNCTIONS
+
+
 
     private static void _printIntro() {
         System.out.println("ZZZZZ  OOOOO  RRRRR  OOOOO  ");
@@ -29,17 +131,6 @@ public class Zoro {
         System.out.println("What can I do for you?");
         System.out.println("1: echo\n2: store list\nmore features coming soon!");
         System.out.println("________________________\n");
-    }
-
-    public static void echo(Scanner scanner, String user_input) {
-        System.out.println("Echo activated!\nType something and I will echo it!\nType \"bye\" to exit!");
-        user_input = scanner.nextLine();
-        while (!(user_input.toLowerCase().equals("bye"))) {
-            System.out.println(user_input);
-            user_input = scanner.nextLine();
-        }
-        System.out.println("Goodbye - see you soon");
-        ;
     }
 
     private static void _addTaskToList(Task[] task_list, String user_input, int task_list_index) {
@@ -69,66 +160,14 @@ public class Zoro {
         if (task_list[mark_idx].setDone()) {
             System.out.println("Task " + user_input + " has been marked as done!");
         } else {
-           System.out.println("Task " + user_input + " has been unmarked!");
+            System.out.println("Task " + user_input + " has been unmarked!");
         }
 
-    }
-
-    public static void storeList(Scanner scanner, String user_input) {
-       System.out.println("Storing a list for you!\nType something and I will store it.\nType \"list\" to see what you stored\nType \"mark [x]\" and I will mark/unmark the task at index [x].\nType \"bye\" to exit!");
-        Task[] task_list = new Task[100];
-        int task_list_index = 0;
-        user_input = scanner.nextLine();
-        while (!(user_input.toLowerCase().equals("bye"))) {
-            switch (user_input.toLowerCase().split(" ")[0]) {
-                case "list":
-                    _printList(task_list, task_list_index);
-                    user_input = scanner.nextLine();
-                    break;
-                case "mark":
-                    _markTask(task_list, task_list_index, user_input);
-                    user_input = scanner.nextLine();
-                    break;
-                case "back":
-                    ZoroState = State.MENU;
-                    handleState(ZoroState, scanner, user_input);
-                    break;
-                default:
-                    _addTaskToList(task_list, user_input, task_list_index);
-                    task_list_index++;
-                    user_input = scanner.nextLine();
-            }
-        }
-        System.out.println("Goodbye! - see you soon");
-    }
-
-    public static void handleState(State state, Scanner scanner, String user_input) {
-        switch (state) {
-            case MENU:
-                menu();
-                break;
-            case ECHO:
-                echo(scanner, user_input);
-                break;
-            case LIST:
-                storeList(scanner, user_input);
-                break;
-            default:
-                menu();
-                break;
-        }
     }
 
 
     public static void main(String[] args) {
-        try (Scanner scanner = new Scanner(System.in)) {
-            String user_input = scanner.nextLine();
-            if (user_input.toLowerCase().split(" ")[0].equals("echo")) {
-                ZoroState = State.ECHO;
-            } else if (user_input.toLowerCase().replace(" ", "").equals("storelist")) {
-                ZoroState = State.LIST;
-            }
-            handleState(ZoroState, scanner, user_input);
-        }
+        Zoro zoro = new Zoro();
+        zoro.run();
     }
 }
