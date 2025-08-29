@@ -6,8 +6,8 @@ public class Zoro {
     //STATE IMPLEMEMTATION
 
 
-
-    public enum State { //enum to keep track of state
+    /**enum to keep track of state**/
+    public enum State {
         MENU,
         ECHO,
         LIST,
@@ -17,28 +17,28 @@ public class Zoro {
     protected static State ZoroState = State.MENU;
     private static final Scanner scanner = new Scanner(System.in);
 
+
     public void run() { //the only function that has to be run in main
         while (ZoroState != State.EXIT) {
             handleState(ZoroState);
         }
     }
 
-    //handles every state
     public static void handleState(State state) {
         switch (state) {
-            case MENU:
-                menu();
-                break;
-            case ECHO:
-                echo();
-                break;
-            case LIST:
-                storeList();
-                break;
-            default:
-                ZoroState = State.MENU;
-                break;
-        }
+        case MENU:
+            menu();
+            break;
+        case ECHO:
+            echo();
+            break;
+        case LIST:
+            storeList();
+            break;
+        default:
+            ZoroState = State.MENU;
+            break;
+    }
     }
 
 
@@ -51,61 +51,74 @@ public class Zoro {
         _printIntro();
         String user_input = scanner.nextLine().trim().toLowerCase();
         switch (user_input) {
-            case "echo":
-            case "1":
-                ZoroState = State.ECHO;
-                break;
-            case "list":
-            case "2":
-            case "store list":
-                ZoroState = State.LIST;
-                break;
-            case "exit":
-            case "bye":
-                ZoroState = State.EXIT;
-                break;
-            default:
-                System.out.println("Invalid input");
+        case "echo":
+        case "1":
+            ZoroState = State.ECHO;
+            break;
+        case "list":
+        case "2":
+        case "store list":
+            ZoroState = State.LIST;
+            break;
+        case "exit":
+        case "bye":
+            System.out.println("See ya!");
+            ZoroState = State.EXIT;
+            break;
+        default:
+            System.out.println("Invalid input");
         }
 
     }
 
     public static void echo() {
-        System.out.println("Echo activated!\nType something and I will echo it!\nType \"bye\" to exit!");
+        System.out.println(
+                "Echo activated!\n" +
+                "Type something and I will echo it!\n" +
+                "Type \"bye\" to exit!"
+        );
         while (ZoroState ==  State.ECHO) {
             String user_input = scanner.nextLine();
             switch (user_input) {
-                case "bye":
-                    ZoroState = State.EXIT;
-                    break;
-                case "menu":
-                    ZoroState = State.MENU;
-                    break;
-                default:
-                    System.out.println(user_input);
+            case "bye":
+                System.out.println("See ya!");
+                ZoroState = State.EXIT;
+                break;
+            case "menu":
+                ZoroState = State.MENU;
+                break;
+            default:
+                System.out.println(user_input);
             }
         }
     }
 
     public static void storeList() {
-        System.out.println("Storing a list for you!\nType something and I will store it.\nType \"list\" to see what you stored\nType \"mark [x]\" and I will mark/unmark the task at index [x].\nType \"bye\" to exit!");
+        System.out.println(
+                "Storing a list for you!\n" +
+                "Type something and I will store it.\n" +
+                "Type \"list\" to see what you stored\n" +
+                "Type \"mark [x]\" and I will mark/unmark the task at index [x].\n" +
+                "Type \"bye\" to exit!"
+        );
         Task[] task_list = new Task[100];
         int task_list_index = 0;
         while (ZoroState == State.LIST) {
             String user_input = scanner.nextLine();
             switch (user_input.toLowerCase().split(" ")[0]) {
-                case "list":
-                    _printList(task_list, task_list_index);
-                    break;
-                case "mark":
-                    _markTask(task_list, task_list_index, user_input);
-                    break;
-                case "menu":
-                    ZoroState = State.MENU;
-                    break;
-                case "bye":
-                    ZoroState = State.EXIT;
-                    break;
+            case "list":
+                _printList(task_list, task_list_index);
+                break;
+            case "mark":
+                _markTask(task_list, task_list_index, user_input);
+                break;
+            case "menu":
+                ZoroState = State.MENU;
+                break;
+            case "bye":
+                System.out.println("See ya!");
+                ZoroState = State.EXIT;
+                break;
                 default:
                     _addTaskToList(task_list, user_input, task_list_index);
                     task_list_index++;
@@ -121,16 +134,26 @@ public class Zoro {
 
 
     private static void _printIntro() {
-        System.out.println("ZZZZZ  OOOOO  RRRRR  OOOOO  ");
-        System.out.println("   Z   O   O  R   R  O   O  ");
-        System.out.println("  Z    O   O  RRRRR  O   O  ");
-        System.out.println(" Z     O   O  R  R   O   O  ");
-        System.out.println("ZZZZZ  OOOOO  R   R  OOOOO ");
+        String ZORO_LOGO =
+                "╔═════════════════════════════════════╗\n" +
+                "║  ███████╗ ██████╗ ██████╗  ██████╗  ║\n" +
+                "║  ╚══███╔╝██╔═══██╗██╔══██╗██╔═══██╗ ║\n" +
+                "║    ███╔╝ ██║   ██║██████╔╝██║   ██║ ║\n" +
+                "║   ███╔╝  ██║   ██║██╔══██╗██║   ██║ ║\n" +
+                "║  ███████╗╚██████╔╝██║  ██║╚██████╔  ║\n" +
+                "║  ╚══════╝ ╚═════╝ ╚═╝  ╚═╝ ╚═════╝  ║\n" +
+                "╚═════════════════════════════════════╝";
+        System.out.println(ZORO_LOGO);
         String name = "Zoro";
         System.out.println("________________________");
         System.out.println("Hello, I'm " + name + " - I think I'm lost..");
         System.out.println("What can I do for you?");
-        System.out.println("1: echo\n2: store list\nmore features coming soon!\n\"exit\" to exit");
+        System.out.println(
+                "1: echo\n" +
+                "2: store list\n" +
+                "More features coming soon!\n" +
+                "Type \"bye\" or \"exit\" to exit"
+        );
         System.out.println("________________________\n");
     }
 
@@ -141,7 +164,7 @@ public class Zoro {
     }
 
     private static void _printList(Task[] task_list, int task_list_index) {
-        for (int i = 0; i < task_list_index; i++) {
+        for (int i=0; i<task_list_index; i++) {
             if (task_list[i].isDone()) {
                 System.out.println(i + "." + "[X]" + task_list[i].getDescription());
             } else {
