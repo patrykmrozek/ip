@@ -1,3 +1,5 @@
+import java.util.List;
+
 public class UserInterface {
 
 
@@ -62,6 +64,10 @@ public class UserInterface {
         System.out.println("Task " + user_input + " has been marked as done!");
     }
 
+   public void printTaskAdded(String user_input) {
+        System.out.println("Task {" + user_input + "} has been added!");
+   }
+
     public void printTaskUnmarked(String user_input) {
         System.out.println("Task " + user_input + " has been unmarked!");
     }
@@ -70,12 +76,12 @@ public class UserInterface {
         System.out.println("Invalid task ID");
     }
 
-    public void printTaskList(Task[] task_list, int task_list_index) {
-        for (int i=0; i<task_list_index; i++) {
-            if (task_list[i].isDone()) {
-                System.out.println(i + "." + "[X]" + task_list[i].getDescription());
+    public void printTaskList(List<Task> tasks) {
+        for (int i=0; i<tasks.size(); i++) {
+            if (tasks.get(i).isDone()) {
+                System.out.println(i + "." + "[X]" + tasks.get(i).getDescription());
             } else {
-                System.out.println(i + "." + "[ ]" + task_list[i].getDescription());
+                System.out.println(i + "." + "[ ]" + tasks.get(i).getDescription());
             }
         }
     }
@@ -86,6 +92,10 @@ public class UserInterface {
 
     public void printGoodbye() {
         System.out.println("See ya!");
+    }
+
+    public void printInvalidInput() {
+        System.out.println("Invalid input!");
     }
 
 

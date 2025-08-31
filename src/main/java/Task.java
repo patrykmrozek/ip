@@ -15,7 +15,7 @@ public class Task {
         return isDone;
     }
 
-    public void setDone() {
+    public void toggleDone() {
         this.isDone = !this.isDone;
     }
 }

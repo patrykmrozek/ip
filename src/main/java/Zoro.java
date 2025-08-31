@@ -1,11 +1,20 @@
+import java.sql.Array;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class Zoro {
 
-    private static UserInterface ui;
+    private UserInterface ui;
+    private TaskManager taskManager;
+    private State ZoroState;
+    private Scanner scanner;
 
     public Zoro() {
         this.ui = new UserInterface();
+        this.taskManager = new TaskManager();
+        this.ZoroState = State.MENU;
+        this.scanner = new Scanner(System.in);
     }
 
     //============================================
@@ -20,17 +29,13 @@ public class Zoro {
         EXIT
     }
 
-    protected static State ZoroState = State.MENU;
-    private static final Scanner scanner = new Scanner(System.in);
-
-
     public void run() { //the only function that has to be run in main
         while (ZoroState != State.EXIT) {
             handleState(ZoroState);
         }
     }
 
-    public static void handleState(State state) {
+    private void handleState(State state) {
         switch (state) {
         case MENU:
             menu();
@@ -39,7 +44,7 @@ public class Zoro {
             echo();
             break;
         case LIST:
-            storeList();
+            taskList();
             break;
         default:
             ZoroState = State.MENU;
@@ -48,12 +53,7 @@ public class Zoro {
     }
 
 
-    //============================================
-    //          MAIN PUBLIC FUNCTIONS
-    //============================================
-
-
-    public static void menu() {
+    private void menu() {
         ui.printMenuIntro();
         String user_input = scanner.nextLine().trim().toLowerCase();
         switch (user_input) {
@@ -72,12 +72,12 @@ public class Zoro {
             ZoroState = State.EXIT;
             break;
         default:
-            System.out.println("Invalid input");
+            ui.printInvalidInput();
         }
 
     }
 
-    public static void echo() {
+    private void echo() {
         ui.printEchoInstruction();
         while (ZoroState ==  State.ECHO) {
             String user_input = scanner.nextLine();
@@ -95,18 +95,20 @@ public class Zoro {
         }
     }
 
-    public static void storeList() {
+    public void taskList() {
         ui.printTaskInstruction();
-        Task[] task_list = new Task[100];
-        int task_list_index = 0;
         while (ZoroState == State.LIST) {
             String user_input = scanner.nextLine();
-            switch (user_input.toLowerCase().split(" ")[0]) {
+            String[] user_input_split = user_input.toLowerCase().split(" ");
+            String user_command = user_input_split[0];
+            switch (user_command) {
             case "list":
-                ui.printTaskList(task_list, task_list_index);
+                ui.printTaskList(taskManager.getTasks());
                 break;
             case "mark":
-                _markTask(task_list, task_list_index, user_input);
+                int task_index = Integer.parseInt(user_input_split[1]);
+                taskManager.markTask(task_index);
+                ui.printTaskMarked(user_input);
                 break;
             case "menu":
                 ZoroState = State.MENU;
@@ -115,44 +117,13 @@ public class Zoro {
                 ui.printGoodbye();
                 ZoroState = State.EXIT;
                 break;
-                default:
-                    _addTaskToList(task_list, user_input, task_list_index);
-                    task_list_index++;
+            default:
+                taskManager.addTaskToList(user_input);
+                ui.printTaskAdded(user_input);
+                break;
             }
         }
     }
-
-
-    //============================================
-    //         PRIVATE HELPER FUNCTIONS
-    //============================================
-
-
-
-
-    private static void _addTaskToList(Task[] task_list, String user_input, int task_list_index) {
-        Task user_task = new Task(user_input); //create task with user desc
-        task_list[task_list_index] = user_task; //add task to task_list at task_index
-        System.out.println("Added {" + user_input + "} to your list");
-    }
-
-    private static void _markTask(Task[] task_list, int task_list_index, String user_input) {
-        int mark_idx = Integer.parseInt(user_input.split(" ")[1]);
-        if (mark_idx < 0 || mark_idx > task_list_index) {
-            ui.printTaskInvalidID();
-            return;
-        }
-        //if the user types "mark 5" - split the string into ["mark", "5"] on the space " "
-        //cast the second item, in this case "5" to int and use it as index into task_list to set task to done
-        if (!task_list[mark_idx].isDone()) {
-            ui.printTaskMarked(user_input);
-        } else {
-            ui.printTaskUnmarked(user_input);
-        }
-        task_list[mark_idx].setDone();
-
-    }
-
 
 
     public static void main(String[] args) {
