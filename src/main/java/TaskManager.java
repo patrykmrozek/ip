@@ -13,6 +13,31 @@ public class TaskManager {
         tasks.add(newTask);
     }
 
+   public void processMarkCommand(String user_input, UserInterface ui) {
+        String[] args = user_input.split(" ");
+
+        if (args.length < 2) { //if user entered less than 2 arguments
+            ui.printUserInputLengthError();
+            return;
+        }
+
+        try {
+            int index = Integer.parseInt(args[1]); //get the index of the task the user wants to mark
+            if (isValidMark(index)) {
+                tasks.get(index).toggleDone();
+                ui.printTaskMarked(user_input);
+            } else {
+                ui.printTaskInvalidID();
+            }
+        } catch (NumberFormatException e) {
+            ui.printTaskInvalidID();
+        }
+   }
+
+   private boolean  isValidMark(int index) {
+       return (index < tasks.size() && index >= 0);
+   }
+
     public void markTask(int index) {
         tasks.get(index).toggleDone();
     }

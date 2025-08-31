@@ -73,7 +73,7 @@ public class UserInterface {
     }
 
     public void printTaskInvalidID() {
-        System.out.println("Invalid task ID");
+        System.out.println("INVALID TASK ID");
     }
 
     public void printTaskList(List<Task> tasks) {
@@ -86,6 +86,10 @@ public class UserInterface {
         }
     }
 
+    public void printUserInputLengthError() {
+        System.out.println("INPUT LENGTH ERROR: Please format like \'mark task_index\'");
+    }
+
 
     /*    GENERAL    */
 
@@ -95,7 +99,7 @@ public class UserInterface {
     }
 
     public void printInvalidInput() {
-        System.out.println("Invalid input!");
+        System.out.println("INVALID INPUT!");
     }
 
 

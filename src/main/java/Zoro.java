@@ -8,13 +8,13 @@ public class Zoro {
     private UserInterface ui;
     private TaskManager taskManager;
     private State ZoroState;
-    private Scanner scanner;
+    private InputHandler inputHandler;
 
     public Zoro() {
         this.ui = new UserInterface();
         this.taskManager = new TaskManager();
         this.ZoroState = State.MENU;
-        this.scanner = new Scanner(System.in);
+        this.inputHandler = new InputHandler();
     }
 
     //============================================
@@ -55,7 +55,7 @@ public class Zoro {
 
     private void handleMenu() {
         ui.printMenuIntro();
-        String user_input = scanner.nextLine().trim().toLowerCase();
+        String user_input = inputHandler.getUserInput();
         switch (user_input) {
         case "echo":
         case "1":
@@ -80,7 +80,7 @@ public class Zoro {
     private void handleEcho() {
         ui.printEchoInstruction();
         while (ZoroState ==  State.ECHO) {
-            String user_input = scanner.nextLine();
+            String user_input = inputHandler.getUserInput();
             switch (user_input) {
             case "bye":
                 ui.printGoodbye();
@@ -98,17 +98,14 @@ public class Zoro {
     public void handleTaskList() {
         ui.printTaskInstruction();
         while (ZoroState == State.LIST) {
-            String user_input = scanner.nextLine();
-            String[] user_input_split = user_input.toLowerCase().split(" ");
-            String user_command = user_input_split[0];
+            String user_input = inputHandler.getUserInput();
+            String user_command = user_input.split(" ")[0];
             switch (user_command) {
             case "list":
                 ui.printTaskList(taskManager.getTasks());
                 break;
             case "mark":
-                int task_index = Integer.parseInt(user_input_split[1]);
-                taskManager.markTask(task_index);
-                ui.printTaskMarked(user_input);
+                taskManager.processMarkCommand(user_input, ui);
                 break;
             case "menu":
                 ZoroState = State.MENU;
