@@ -2,9 +2,15 @@ import java.util.Scanner;
 
 public class Zoro {
 
+    private static UserInterface ui;
 
-    //STATE IMPLEMEMTATION
+    public Zoro() {
+        this.ui = new UserInterface();
+    }
 
+    //============================================
+    //          STATE IMPLEMEMTATION
+    //============================================
 
     /**enum to keep track of state**/
     public enum State {
@@ -42,13 +48,13 @@ public class Zoro {
     }
 
 
-
-    // MAIN PUBLIC FUNCTIONS
-
+    //============================================
+    //          MAIN PUBLIC FUNCTIONS
+    //============================================
 
 
     public static void menu() {
-        _printIntro();
+        ui.printIntro();
         String user_input = scanner.nextLine().trim().toLowerCase();
         switch (user_input) {
         case "echo":
@@ -128,34 +134,12 @@ public class Zoro {
     }
 
 
+    //============================================
+    //         PRIVATE HELPER FUNCTIONS
+    //============================================
 
-    //PRIVATE HELPER FUNCTIONS
 
 
-
-    private static void _printIntro() {
-        String ZORO_LOGO =
-                "╔═════════════════════════════════════╗\n" +
-                "║  ███████╗ ██████╗ ██████╗  ██████╗  ║\n" +
-                "║  ╚══███╔╝██╔═══██╗██╔══██╗██╔═══██╗ ║\n" +
-                "║    ███╔╝ ██║   ██║██████╔╝██║   ██║ ║\n" +
-                "║   ███╔╝  ██║   ██║██╔══██╗██║   ██║ ║\n" +
-                "║  ███████╗╚██████╔╝██║  ██║╚██████╔  ║\n" +
-                "║  ╚══════╝ ╚═════╝ ╚═╝  ╚═╝ ╚═════╝  ║\n" +
-                "╚═════════════════════════════════════╝";
-        System.out.println(ZORO_LOGO);
-        String name = "Zoro";
-        System.out.println("________________________");
-        System.out.println("Hello, I'm " + name + " - I think I'm lost..");
-        System.out.println("What can I do for you?");
-        System.out.println(
-                "1: echo\n" +
-                "2: store list\n" +
-                "More features coming soon!\n" +
-                "Type \"bye\" or \"exit\" to exit"
-        );
-        System.out.println("________________________\n");
-    }
 
     private static void _addTaskToList(Task[] task_list, String user_input, int task_list_index) {
         Task user_task = new Task(user_input); //create task with user desc
@@ -181,13 +165,15 @@ public class Zoro {
         }
         //if the user types "mark 5" - split the string into ["mark", "5"] on the space " "
         //cast the second item, in this case "5" to int and use it as index into task_list to set task to done
-        if (task_list[mark_idx].setDone()) {
+        if (!task_list[mark_idx].isDone()) {
             System.out.println("Task " + user_input + " has been marked as done!");
         } else {
             System.out.println("Task " + user_input + " has been unmarked!");
         }
+        task_list[mark_idx].setDone();
 
     }
+
 
 
     public static void main(String[] args) {
