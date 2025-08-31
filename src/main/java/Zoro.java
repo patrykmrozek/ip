@@ -54,7 +54,7 @@ public class Zoro {
 
 
     public static void menu() {
-        ui.printMenuIntro();
+        ui.printIntroMenu();
         String user_input = scanner.nextLine().trim().toLowerCase();
         switch (user_input) {
         case "echo":
@@ -78,7 +78,7 @@ public class Zoro {
     }
 
     public static void echo() {
-        ui.printEchoInstructions();
+        ui.printInstructionEcho();
         while (ZoroState ==  State.ECHO) {
             String user_input = scanner.nextLine();
             switch (user_input) {
@@ -96,7 +96,7 @@ public class Zoro {
     }
 
     public static void storeList() {
-        ui.printTaskInstructions();
+        ui.printInstructionTask();
         Task[] task_list = new Task[100];
         int task_list_index = 0;
         while (ZoroState == State.LIST) {
