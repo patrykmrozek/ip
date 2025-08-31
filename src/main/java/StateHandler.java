@@ -89,7 +89,7 @@ public class StateHandler {
     }
 
     private void handleTodo(String user_input) {
-        String user_task = user_input.substring(user_input.split(" ")[0].length()+1); //skips the keyword
+        String user_task = taskManager.getTodoSubstring(user_input);
         taskManager.addTaskToList(user_task);
         ui.printTaskAdded(user_task);
     }

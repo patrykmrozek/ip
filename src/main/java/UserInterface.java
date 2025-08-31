@@ -27,7 +27,7 @@ public class UserInterface {
             "More features coming soon!\n" +
             "Type \"bye\" or \"exit\" to exit"
         );
-        System.out.println("________________________\n");
+        System.out.println("________________________");
     }
 
 
@@ -55,8 +55,8 @@ public class UserInterface {
             "a) todo [task]\n" +
             "b) deadline [task] /by[deadline_day]\n" +
             "c) event [event] /from[start_time day] /to[end time day]\n" +
-            "list (lists your tasks)" +
-            "mark [task_name] (mark done/undone)"
+            "list (lists your tasks)\n" +
+            "mark [task_name] (mark done/undone)\n"
         );
     }
 
@@ -77,6 +77,9 @@ public class UserInterface {
     }
 
     public void printTaskList(List<Task> tasks) {
+        if (tasks.isEmpty()) {
+            System.out.println("No tasks found!");
+        }
         for (int i=0; i<tasks.size(); i++) {
             if (tasks.get(i).isDone()) {
                 System.out.println(i + "." + "[X]" + tasks.get(i).getDescription());

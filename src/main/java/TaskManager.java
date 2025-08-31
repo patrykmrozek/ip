@@ -42,9 +42,12 @@ public class TaskManager {
        return (index < tasks.size() && index >= 0);
    }
 
-
     public List<Task> getTasks() {
         return new ArrayList<>(tasks);
+    }
+
+    public String getTodoSubstring(String user_input) {
+        return user_input.substring(user_input.split(" ")[0].length()+1); //skips the keyword
     }
 
 }
