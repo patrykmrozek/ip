@@ -39,9 +39,12 @@ public class StateHandler {
             String user_input = inputHandler.getUserInput();
             switch (user_input) {
                 case "bye":
+                case "exit":
                     ui.printGoodbye();
                     return Zoro.State.EXIT;
                 case "menu":
+                case "return":
+                case "back":
                     return Zoro.State.MENU;
                 default:
                     ui.printEchoMesssage(user_input);
@@ -50,8 +53,8 @@ public class StateHandler {
     }
 
     //instead of creating a state for each task - TASK is the state and ttodo, deadline, event are like substates
-    //that live within the main TASK state - hence why I'm leaving them as private methods which are only going to be
-    //called here by handleTask
+    //that live within the main TASK state - they are all going to be internally processed
+    // via the taskManager
     public Zoro.State handleTask() {
         ui.printTaskInstruction();
         while (true) {
@@ -88,7 +91,4 @@ public class StateHandler {
         }
     }
 
-    private void handleTodo(String user_input) {
-
-    }
 }

@@ -1,13 +1,14 @@
 public class Zoro {
 
     private State ZoroState;
-    private StateHandler stateHandler;
+    private final StateHandler stateHandler;
+    private final InputHandler inputHandler;
 
     public Zoro() {
         UserInterface ui = new UserInterface();
         TaskManager taskManager = new TaskManager();
-        InputHandler inputHandler = new InputHandler();
 
+        this.inputHandler = new InputHandler();
         this.stateHandler = new StateHandler(ui, taskManager, inputHandler);
         this.ZoroState = State.MENU;
     }
@@ -21,9 +22,14 @@ public class Zoro {
     } //decided to keep this in Zoro rather than StateHandler
 
 
-    public void run() { //the only function that has to be run in main
-        while (ZoroState != State.EXIT) {
-            ZoroState = handleState(ZoroState);
+    public void run() {//the only function that has to be run in main
+        try {
+            while (ZoroState != State.EXIT) {
+                ZoroState = handleState(ZoroState);
+
+            }
+        } finally {
+            inputHandler.closeScanner();
         }
     }
 
