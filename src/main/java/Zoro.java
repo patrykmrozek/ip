@@ -54,7 +54,7 @@ public class Zoro {
 
 
     public static void menu() {
-        ui.printIntroMenu();
+        ui.printMenuIntro();
         String user_input = scanner.nextLine().trim().toLowerCase();
         switch (user_input) {
         case "echo":
@@ -78,7 +78,7 @@ public class Zoro {
     }
 
     public static void echo() {
-        ui.printInstructionEcho();
+        ui.printEchoInstruction();
         while (ZoroState ==  State.ECHO) {
             String user_input = scanner.nextLine();
             switch (user_input) {
@@ -90,20 +90,20 @@ public class Zoro {
                 ZoroState = State.MENU;
                 break;
             default:
-                System.out.println(user_input);
+                ui.printEchoMesssage(user_input);
             }
         }
     }
 
     public static void storeList() {
-        ui.printInstructionTask();
+        ui.printTaskInstruction();
         Task[] task_list = new Task[100];
         int task_list_index = 0;
         while (ZoroState == State.LIST) {
             String user_input = scanner.nextLine();
             switch (user_input.toLowerCase().split(" ")[0]) {
             case "list":
-                _printList(task_list, task_list_index);
+                ui.printTaskList(task_list, task_list_index);
                 break;
             case "mark":
                 _markTask(task_list, task_list_index, user_input);
@@ -136,20 +136,10 @@ public class Zoro {
         System.out.println("Added {" + user_input + "} to your list");
     }
 
-    private static void _printList(Task[] task_list, int task_list_index) {
-        for (int i=0; i<task_list_index; i++) {
-            if (task_list[i].isDone()) {
-                System.out.println(i + "." + "[X]" + task_list[i].getDescription());
-            } else {
-                System.out.println(i + "." + "[ ]" + task_list[i].getDescription());
-            }
-        }
-    }
-
     private static void _markTask(Task[] task_list, int task_list_index, String user_input) {
         int mark_idx = Integer.parseInt(user_input.split(" ")[1]);
         if (mark_idx < 0 || mark_idx > task_list_index) {
-            System.out.println("Invalid task ID");
+            ui.printTaskInvalidID();
             return;
         }
         //if the user types "mark 5" - split the string into ["mark", "5"] on the space " "

@@ -1,5 +1,10 @@
 public class UserInterface {
-    public void printIntroMenu() {
+
+
+    /*    MENU    */
+
+
+    public void printMenuIntro() {
         String ZORO_LOGO =
             "╔═════════════════════════════════════╗\n" +
             "║  ███████╗ ██████╗ ██████╗  ██████╗  ║\n" +
@@ -23,7 +28,11 @@ public class UserInterface {
         System.out.println("________________________\n");
     }
 
-    public void printInstructionEcho() {
+
+    /*    ECHO    */
+
+
+    public void printEchoInstruction() {
         System.out.println(
             "Echo activated!\n" +
             "Type something and I will echo it!\n" +
@@ -31,7 +40,15 @@ public class UserInterface {
         );
     }
 
-    public void printInstructionTask() {
+    public void printEchoMesssage(String user_input) {
+        System.out.println(user_input);
+    }
+
+
+    /*    TASK    */
+
+
+    public void printTaskInstruction() {
         System.out.println(
             "Storing a list for you!\n" +
             "Type something and I will store it.\n" +
@@ -41,10 +58,6 @@ public class UserInterface {
         );
     }
 
-    public void printGoodbye() {
-        System.out.println("See ya!");
-    }
-
     public void printTaskMarked(String user_input) {
         System.out.println("Task " + user_input + " has been marked as done!");
     }
@@ -52,6 +65,29 @@ public class UserInterface {
     public void printTaskUnmarked(String user_input) {
         System.out.println("Task " + user_input + " has been unmarked!");
     }
+
+    public void printTaskInvalidID() {
+        System.out.println("Invalid task ID");
+    }
+
+    public void printTaskList(Task[] task_list, int task_list_index) {
+        for (int i=0; i<task_list_index; i++) {
+            if (task_list[i].isDone()) {
+                System.out.println(i + "." + "[X]" + task_list[i].getDescription());
+            } else {
+                System.out.println(i + "." + "[ ]" + task_list[i].getDescription());
+            }
+        }
+    }
+
+
+    /*    GENERAL    */
+
+
+    public void printGoodbye() {
+        System.out.println("See ya!");
+    }
+
 
 
 }
