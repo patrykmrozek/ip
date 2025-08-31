@@ -115,6 +115,10 @@ public class UserInterface {
         System.out.println("INVALID INPUT!");
     }
 
+    public void printValidationError(String error_message) {
+        System.out.println("ERROR!!!!!!!!!\n" + error_message);
+    }
+
 
 
 }

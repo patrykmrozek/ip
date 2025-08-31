@@ -39,6 +39,13 @@ public class TaskManager {
    }
 
    public void processTodoCommand(String user_input, UserInterface ui) {
+        Validator.ValidationResult validation = Validator.validateTodoCommand(user_input);
+
+        if (!validation.isValid()) {
+            ui.printValidationError(validation.getErrorMessage());
+            return;
+        }
+
         String description = getTaskSubstring(user_input);
         if (description.trim().isEmpty()) {
             ui.printUserInputLengthError();
