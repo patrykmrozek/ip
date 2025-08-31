@@ -5,21 +5,17 @@ import java.util.Scanner;
 
 public class Zoro {
 
-    private UserInterface ui;
-    private TaskManager taskManager;
     private State ZoroState;
-    private InputHandler inputHandler;
+    private StateHandler stateHandler;
 
     public Zoro() {
-        this.ui = new UserInterface();
-        this.taskManager = new TaskManager();
-        this.ZoroState = State.MENU;
-        this.inputHandler = new InputHandler();
-    }
+        UserInterface ui = new UserInterface();
+        TaskManager taskManager = new TaskManager();
+        InputHandler inputHandler = new InputHandler();
 
-    //============================================
-    //          STATE IMPLEMEMTATION
-    //============================================
+        this.stateHandler = new StateHandler(ui, taskManager, inputHandler);
+        this.ZoroState = State.MENU;
+    }
 
     /**enum to keep track of state**/
     public enum State {
@@ -27,101 +23,27 @@ public class Zoro {
         ECHO,
         LIST,
         EXIT
-    }
+    } //decided to keep this in Zoro rather than StateHandler
+
 
     public void run() { //the only function that has to be run in main
         while (ZoroState != State.EXIT) {
-            handleState(ZoroState);
+            ZoroState = handleState(ZoroState);
         }
     }
 
-    private void handleState(State state) {
+    private State handleState(State state) {
         switch (state) {
         case MENU:
-            handleMenu();
-            break;
+            return stateHandler.handleMenu();
         case ECHO:
-            handleEcho();
-            break;
+            return stateHandler.handleEcho();
         case LIST:
-            handleTaskList();
-            break;
+            return stateHandler.handleTaskList();
         default:
-            ZoroState = State.MENU;
-            break;
-    }
-    }
-
-
-    private void handleMenu() {
-        ui.printMenuIntro();
-        String user_input = inputHandler.getUserInput();
-        switch (user_input) {
-        case "echo":
-        case "1":
-            ZoroState = State.ECHO;
-            break;
-        case "list":
-        case "2":
-        case "store list":
-            ZoroState = State.LIST;
-            break;
-        case "exit":
-        case "bye":
-            ui.printGoodbye();
-            ZoroState = State.EXIT;
-            break;
-        default:
-            ui.printInvalidInput();
-        }
-
-    }
-
-    private void handleEcho() {
-        ui.printEchoInstruction();
-        while (ZoroState ==  State.ECHO) {
-            String user_input = inputHandler.getUserInput();
-            switch (user_input) {
-            case "bye":
-                ui.printGoodbye();
-                ZoroState = State.EXIT;
-                break;
-            case "menu":
-                ZoroState = State.MENU;
-                break;
-            default:
-                ui.printEchoMesssage(user_input);
-            }
+            return State.MENU;
         }
     }
-
-    public void handleTaskList() {
-        ui.printTaskInstruction();
-        while (ZoroState == State.LIST) {
-            String user_input = inputHandler.getUserInput();
-            String user_command = user_input.split(" ")[0];
-            switch (user_command) {
-            case "list":
-                ui.printTaskList(taskManager.getTasks());
-                break;
-            case "mark":
-                taskManager.processMarkCommand(user_input, ui);
-                break;
-            case "menu":
-                ZoroState = State.MENU;
-                break;
-            case "bye":
-                ui.printGoodbye();
-                ZoroState = State.EXIT;
-                break;
-            default:
-                taskManager.addTaskToList(user_input);
-                ui.printTaskAdded(user_input);
-                break;
-            }
-        }
-    }
-
 
     public static void main(String[] args) {
         Zoro zoro = new Zoro();
