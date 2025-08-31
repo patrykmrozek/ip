@@ -54,7 +54,7 @@ public class TaskManager {
        String[] args = user_input.split(" ");
        List<String> argsList = Arrays.asList(args);
 
-       if (args.length < 2) {
+       if (args.length < 4) { //need [deadline] [task] [/by] [deadline_by]
            ui.printUserInputLengthError();
            return;
        }
@@ -72,6 +72,7 @@ public class TaskManager {
            }
        }
        if (deadline != null) {
+           addTask(deadline);
            ui.printDeadlineAdded(deadline);
        } else {
            ui.printDeadlineError();
@@ -82,8 +83,9 @@ public class TaskManager {
        String[] args = user_task.split(" ");
        List<String> argsList = Arrays.asList(args);
 
-       if (args.length < 1) {
+       if (args.length < 4) { //need [deadline] [task] [/by] [deadline_by]
            ui.printUserInputLengthError();
+           return;
        }
    }
 
