@@ -1,5 +1,5 @@
 public class UserInterface {
-    public void printIntro() {
+    public void printMenuIntro() {
         String ZORO_LOGO =
             "╔═════════════════════════════════════╗\n" +
             "║  ███████╗ ██████╗ ██████╗  ██████╗  ║\n" +
@@ -22,4 +22,28 @@ public class UserInterface {
         );
         System.out.println("________________________\n");
     }
+
+    public void printEchoInstructions() {
+        System.out.println(
+            "Echo activated!\n" +
+            "Type something and I will echo it!\n" +
+            "Type \"bye\" to exit!"
+        );
+    }
+
+    public void printTaskInstructions() {
+        System.out.println(
+            "Storing a list for you!\n" +
+            "Type something and I will store it.\n" +
+            "Type \"list\" to see what you stored\n" +
+            "Type \"mark [x]\" and I will mark/unmark the task at index [x].\n" +
+            "Type \"bye\" to exit!"
+        );
+    }
+
+    public void printGoodbye() {
+        System.out.println("See ya!");
+    }
+
+
 }

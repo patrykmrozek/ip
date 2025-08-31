@@ -54,7 +54,7 @@ public class Zoro {
 
 
     public static void menu() {
-        ui.printIntro();
+        ui.printMenuIntro();
         String user_input = scanner.nextLine().trim().toLowerCase();
         switch (user_input) {
         case "echo":
@@ -78,16 +78,12 @@ public class Zoro {
     }
 
     public static void echo() {
-        System.out.println(
-                "Echo activated!\n" +
-                "Type something and I will echo it!\n" +
-                "Type \"bye\" to exit!"
-        );
+        ui.printEchoInstructions();
         while (ZoroState ==  State.ECHO) {
             String user_input = scanner.nextLine();
             switch (user_input) {
             case "bye":
-                System.out.println("See ya!");
+                ui.printGoodbye();
                 ZoroState = State.EXIT;
                 break;
             case "menu":
@@ -100,13 +96,7 @@ public class Zoro {
     }
 
     public static void storeList() {
-        System.out.println(
-                "Storing a list for you!\n" +
-                "Type something and I will store it.\n" +
-                "Type \"list\" to see what you stored\n" +
-                "Type \"mark [x]\" and I will mark/unmark the task at index [x].\n" +
-                "Type \"bye\" to exit!"
-        );
+        ui.printTaskInstructions();
         Task[] task_list = new Task[100];
         int task_list_index = 0;
         while (ZoroState == State.LIST) {
@@ -122,7 +112,7 @@ public class Zoro {
                 ZoroState = State.MENU;
                 break;
             case "bye":
-                System.out.println("See ya!");
+                ui.printGoodbye();
                 ZoroState = State.EXIT;
                 break;
                 default:
@@ -130,7 +120,7 @@ public class Zoro {
                     task_list_index++;
             }
         }
-        System.out.println("Goodbye! - see you soon");
+        ui.printGoodbye();
     }
 
 
