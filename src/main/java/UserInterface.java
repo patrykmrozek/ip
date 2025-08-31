@@ -64,8 +64,9 @@ public class UserInterface {
         System.out.println("Task " + user_input + " has been marked as done!");
     }
 
-   public void printTaskAdded(String user_input) {
-        System.out.println("Task {" + user_input + "} has been added!");
+   public void printTaskAdded(Task task) {
+        System.out.println(task.toString());
+
    }
 
     public void printTaskUnmarked(String user_input) {
@@ -91,6 +92,14 @@ public class UserInterface {
 
     public void printUserInputLengthError() {
         System.out.println("INPUT LENGTH ERROR: Please format like \'mark task_index\'");
+    }
+
+    public void printDeadlineAdded(Deadline deadline) {
+        System.out.println(deadline.toString());
+    }
+
+    public void printDeadlineError() {
+        System.out.println("Deadline error!");
     }
 
 

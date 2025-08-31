@@ -60,15 +60,15 @@ public class StateHandler {
             switch (user_command) {
                 case "todo":
                 case "a":
-                    handleTodo(user_input);
+                    taskManager.processTodoCommand(user_input, ui);
                     break;
                 case "deadline":
                 case "b":
-                    handleDeadline(user_input);
+                    taskManager.processDeadlineCommand(user_input, ui);
                     break;
                 case "event":
                 case "c":
-                    handleEvent(user_input);
+                    taskManager.processEventCommand(user_input, ui);
                     break;
                 case "list":
                     ui.printTaskList(taskManager.getTasks());
@@ -89,16 +89,6 @@ public class StateHandler {
     }
 
     private void handleTodo(String user_input) {
-        String user_task = taskManager.getTodoSubstring(user_input);
-        taskManager.addTaskToList(user_task);
-        ui.printTaskAdded(user_task);
-    }
-
-    private void handleDeadline(String user_input) {
-
-    }
-
-    private void handleEvent(String user_input) {
 
     }
 }
