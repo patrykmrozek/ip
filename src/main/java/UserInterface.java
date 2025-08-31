@@ -45,5 +45,13 @@ public class UserInterface {
         System.out.println("See ya!");
     }
 
+    public void printTaskMarked(String user_input) {
+        System.out.println("Task " + user_input + " has been marked as done!");
+    }
+
+    public void printTaskUnmarked(String user_input) {
+        System.out.println("Task " + user_input + " has been unmarked!");
+    }
+
 
 }

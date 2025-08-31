@@ -68,7 +68,7 @@ public class Zoro {
             break;
         case "exit":
         case "bye":
-            System.out.println("See ya!");
+            ui.printGoodbye();
             ZoroState = State.EXIT;
             break;
         default:
@@ -120,7 +120,6 @@ public class Zoro {
                     task_list_index++;
             }
         }
-        ui.printGoodbye();
     }
 
 
@@ -156,9 +155,9 @@ public class Zoro {
         //if the user types "mark 5" - split the string into ["mark", "5"] on the space " "
         //cast the second item, in this case "5" to int and use it as index into task_list to set task to done
         if (!task_list[mark_idx].isDone()) {
-            System.out.println("Task " + user_input + " has been marked as done!");
+            ui.printTaskMarked(user_input);
         } else {
-            System.out.println("Task " + user_input + " has been unmarked!");
+            ui.printTaskUnmarked(user_input);
         }
         task_list[mark_idx].setDone();
 
