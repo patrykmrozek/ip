@@ -10,11 +10,12 @@ public class Task {
     public String getDescription() {
         return description;
     }
+
     public boolean isDone() {
         return isDone;
     }
-    public boolean setDone() {
+
+    public void setDone() {
         this.isDone = !this.isDone;
-        return this.isDone;
     }
 }
