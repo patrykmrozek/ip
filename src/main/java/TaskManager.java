@@ -23,7 +23,7 @@ public class TaskManager {
 
         try {
             int index = Integer.parseInt(args[1]); //get the index of the task the user wants to mark
-            if (isValidMark(index)) {
+            if (isValidIndex(index, tasks.size())) {
                 tasks.get(index).toggleDone();
                 if  (tasks.get(index).isDone()) {
                     ui.printTaskMarked(tasks.get(index).getDescription());
@@ -63,12 +63,14 @@ public class TaskManager {
        //i=1 so that it skips 'deadline'
        for (int i=1; i<argsList.size(); i++) {
            if (argsList.get(i).equals("/by")) {
-               //from /by - creates a sublist of the remaining elements and casts to strin separated by space
-               deadline = new Deadline(
-                       String.join(" ", argsList.subList(1, i)), //string before /by
-                       String.join(" ", argsList.subList(i+1, argsList.size())) //string after /by
-               );
-               break;
+               if (isValidIndex(i + 1, argsList.size())) {
+                   //from /by - creates a sublist of the remaining elements and casts to strin separated by space
+                   deadline = new Deadline(
+                           String.join(" ", argsList.subList(1, i)), //string before /by
+                           String.join(" ", argsList.subList(i + 1, argsList.size())) //string after /by
+                   );
+                   break;
+               }
            }
        }
        if (deadline != null) {
@@ -83,14 +85,14 @@ public class TaskManager {
        String[] args = user_task.split(" ");
        List<String> argsList = Arrays.asList(args);
 
-       if (args.length < 4) { //need [deadline] [task] [/by] [deadline_by]
+       if (args.length < 6) { //need [event] [task] [/from] [start_day] [/to] [end_day]
            ui.printUserInputLengthError();
            return;
        }
    }
 
-   private boolean  isValidMark(int index) {
-       return (index < tasks.size() && index >= 0);
+   private boolean isValidIndex(int index, int size) {
+        return index >= 0 && index < size;
    }
 
     public List<Task> getTasks() {

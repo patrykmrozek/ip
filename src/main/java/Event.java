@@ -6,10 +6,11 @@ public class Event extends Task {
         super(description);
         this.start_time = start_time;
         this.end_time = end_time;
+        this.task_type = "[E]";
     }
 
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: "  + start_time + ", to: " + end_time + ")";
+        return super.toString() + " (from: "  + start_time + ", to: " + end_time + ")";
     }
 }

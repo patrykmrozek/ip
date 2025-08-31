@@ -4,10 +4,11 @@ public class Deadline extends Task {
     public Deadline(String description, String deadline_by) {
         super(description);
         this.deadline_by = deadline_by;
+        this.task_type = "[D]";
     }
 
     @Override
     public String toString() {
-        return "[D] " + super.toString() + " (by: " + deadline_by + ")";
+        return super.toString() + " (by: " + deadline_by + ")";
     }
 }

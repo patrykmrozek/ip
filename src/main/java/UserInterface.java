@@ -81,12 +81,9 @@ public class UserInterface {
         if (tasks.isEmpty()) {
             System.out.println("No tasks found!");
         }
-        for (int i=0; i<tasks.size(); i++) {
-            if (tasks.get(i).isDone()) {
-                System.out.println(i + "." + "[X]" + tasks.get(i).getDescription());
-            } else {
-                System.out.println(i + "." + "[ ]" + tasks.get(i).getDescription());
-            }
+
+        for (Task task : tasks) {
+            System.out.println(task.toString());
         }
     }
 
