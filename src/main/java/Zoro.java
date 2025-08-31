@@ -1,8 +1,3 @@
-import java.sql.Array;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
-
 public class Zoro {
 
     private State ZoroState;
@@ -21,7 +16,7 @@ public class Zoro {
     public enum State {
         MENU,
         ECHO,
-        LIST,
+        TASK_LIST,
         EXIT
     } //decided to keep this in Zoro rather than StateHandler
 
@@ -38,7 +33,7 @@ public class Zoro {
             return stateHandler.handleMenu();
         case ECHO:
             return stateHandler.handleEcho();
-        case LIST:
+        case TASK_LIST:
             return stateHandler.handleTaskList();
         default:
             return State.MENU;

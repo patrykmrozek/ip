@@ -25,7 +25,11 @@ public class TaskManager {
             int index = Integer.parseInt(args[1]); //get the index of the task the user wants to mark
             if (isValidMark(index)) {
                 tasks.get(index).toggleDone();
-                ui.printTaskMarked(user_input);
+                if  (tasks.get(index).isDone()) {
+                    ui.printTaskMarked(tasks.get(index).getDescription());
+                } else {
+                    ui.printTaskUnmarked(tasks.get(index).getDescription());
+                }
             } else {
                 ui.printTaskInvalidID();
             }
@@ -38,9 +42,6 @@ public class TaskManager {
        return (index < tasks.size() && index >= 0);
    }
 
-    public void markTask(int index) {
-        tasks.get(index).toggleDone();
-    }
 
     public List<Task> getTasks() {
         return new ArrayList<>(tasks);

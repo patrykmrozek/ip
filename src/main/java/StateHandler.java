@@ -20,7 +20,7 @@ public class StateHandler {
             case "list":
             case "2":
             case "store list":
-                return Zoro.State.LIST;
+                return Zoro.State.TASK_LIST;
             case "exit":
             case "bye":
                 ui.printGoodbye();

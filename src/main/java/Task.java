@@ -18,4 +18,9 @@ public class Task {
     public void toggleDone() {
         this.isDone = !this.isDone;
     }
+
+    @Override
+    public String toString() {
+        return description;
+    }
 }
