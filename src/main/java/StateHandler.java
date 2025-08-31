@@ -55,6 +55,25 @@ public class StateHandler {
             String user_input = inputHandler.getUserInput();
             String user_command = user_input.split(" ")[0];
             switch (user_command) {
+                case "todo":
+                case "a":
+                    return handleTodo();
+                case "deadline":
+                case "b":
+                    return handleDeadline();
+                case "event":
+                case "c":
+                    return handleEvent();
+            }
+        }
+    }
+
+    private Zoro.State handleTodo() {
+        ui.printTodoInstruction();
+        while (true) {
+            String user_input = inputHandler.getUserInput();
+            String user_command = user_input.split(" ")[0];
+            switch (user_command) {
                 case "list":
                     ui.printTaskList(taskManager.getTasks());
                     break;
@@ -74,15 +93,19 @@ public class StateHandler {
         }
     }
 
-    public Zoro.State handleTodo() {
-
+    private Zoro.State handleDeadline() {
+        ui.printDeadlineInstruction();
+        while(true) {
+            break;
+        }
+        return null;
     }
 
-    public Zoro.State handleDeadline() {
-
-    }
-
-    public Zoro.State handleEvent() {
-
+    private Zoro.State handleEvent() {
+        ui.printEventInstruction();
+        while(true) {
+            break;
+        }
+        return null;
     }
 }

@@ -17,9 +17,6 @@ public class Zoro {
         MENU,
         ECHO,
         TASK,
-        TODO,
-        DEADLINE,
-        EVENT,
         EXIT
     } //decided to keep this in Zoro rather than StateHandler
 

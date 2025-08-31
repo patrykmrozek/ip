@@ -24,9 +24,6 @@ public class UserInterface {
         System.out.println(
             "1: echo\n" +
             "2: task\n" +
-            "\ta) todo\n" +
-            "\ta) deadline\n" +
-            "\ta) event\n" +
             "More features coming soon!\n" +
             "Type \"bye\" or \"exit\" to exit"
         );
@@ -55,11 +52,9 @@ public class UserInterface {
 
     public void printTaskInstruction() {
         System.out.println(
-            "Storing a list for you!\n" +
-            "Type something and I will store it.\n" +
-            "Type \"list\" to see what you stored\n" +
-            "Type \"mark [x]\" and I will mark/unmark the task at index [x].\n" +
-            "Type \"bye\" to exit!"
+            "\ta) todo\n" +
+            "\ta) deadline\n" +
+            "\ta) event\n"
         );
     }
 
@@ -88,6 +83,25 @@ public class UserInterface {
             }
         }
     }
+
+   public void printTodoInstruction() {
+       System.out.println(
+           "Storing a todo list for you!\n" +
+           "Type something and I will store it.\n" +
+           "Type \"list\" to see what you stored\n" +
+           "Type \"mark [x]\" and I will mark/unmark the task at index [x].\n" +
+           "Type \"bye\" to exit!"
+   );
+   }
+
+   public void printDeadlineInstruction() {
+        System.out.println("Deadline information for you!");
+   }
+
+   public void printEventInstruction() {
+        System.out.println("Event information for you!");
+   }
+
 
     public void printUserInputLengthError() {
         System.out.println("INPUT LENGTH ERROR: Please format like \'mark task_index\'");
