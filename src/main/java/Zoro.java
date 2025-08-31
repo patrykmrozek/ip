@@ -38,13 +38,13 @@ public class Zoro {
     private void handleState(State state) {
         switch (state) {
         case MENU:
-            menu();
+            handleMenu();
             break;
         case ECHO:
-            echo();
+            handleEcho();
             break;
         case LIST:
-            taskList();
+            handleTaskList();
             break;
         default:
             ZoroState = State.MENU;
@@ -53,7 +53,7 @@ public class Zoro {
     }
 
 
-    private void menu() {
+    private void handleMenu() {
         ui.printMenuIntro();
         String user_input = scanner.nextLine().trim().toLowerCase();
         switch (user_input) {
@@ -77,7 +77,7 @@ public class Zoro {
 
     }
 
-    private void echo() {
+    private void handleEcho() {
         ui.printEchoInstruction();
         while (ZoroState ==  State.ECHO) {
             String user_input = scanner.nextLine();
@@ -95,7 +95,7 @@ public class Zoro {
         }
     }
 
-    public void taskList() {
+    public void handleTaskList() {
         ui.printTaskInstruction();
         while (ZoroState == State.LIST) {
             String user_input = scanner.nextLine();
