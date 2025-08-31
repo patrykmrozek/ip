@@ -16,7 +16,10 @@ public class Zoro {
     public enum State {
         MENU,
         ECHO,
-        TASK_LIST,
+        TASK,
+        TODO,
+        DEADLINE,
+        EVENT,
         EXIT
     } //decided to keep this in Zoro rather than StateHandler
 
@@ -33,8 +36,8 @@ public class Zoro {
             return stateHandler.handleMenu();
         case ECHO:
             return stateHandler.handleEcho();
-        case TASK_LIST:
-            return stateHandler.handleTaskList();
+        case TASK:
+            return stateHandler.handleTask();
         default:
             return State.MENU;
         }

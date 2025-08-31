@@ -23,7 +23,10 @@ public class UserInterface {
         System.out.println("What can I do for you?");
         System.out.println(
             "1: echo\n" +
-            "2: store list\n" +
+            "2: task\n" +
+            "\ta) todo\n" +
+            "\ta) deadline\n" +
+            "\ta) event\n" +
             "More features coming soon!\n" +
             "Type \"bye\" or \"exit\" to exit"
         );

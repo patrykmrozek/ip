@@ -4,9 +4,9 @@ public class StateHandler {
     private final InputHandler inputHandler;
 
     public StateHandler(UserInterface ui, TaskManager taskManager, InputHandler inputHandler) {
-        this.ui = new UserInterface();
-        this.taskManager = new TaskManager();
-        this.inputHandler = new InputHandler();
+        this.ui = ui;
+        this.taskManager = taskManager;
+        this.inputHandler = inputHandler;
     }
 
 
@@ -18,9 +18,11 @@ public class StateHandler {
             case "1":
                 return Zoro.State.ECHO;
             case "list":
+            case "task":
+            case "todo":
             case "2":
             case "store list":
-                return Zoro.State.TASK_LIST;
+                return Zoro.State.TASK;
             case "exit":
             case "bye":
                 ui.printGoodbye();
@@ -47,7 +49,7 @@ public class StateHandler {
         }
     }
 
-    public Zoro.State handleTaskList() {
+    public Zoro.State handleTask() {
         ui.printTaskInstruction();
         while (true) {
             String user_input = inputHandler.getUserInput();
@@ -70,5 +72,17 @@ public class StateHandler {
                     break;
             }
         }
+    }
+
+    public Zoro.State handleTodo() {
+
+    }
+
+    public Zoro.State handleDeadline() {
+
+    }
+
+    public Zoro.State handleEvent() {
+
     }
 }
