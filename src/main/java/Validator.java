@@ -15,7 +15,7 @@ public class Validator {
             return ValidationResult.fail("You're description is empty.. why are you scheduling nothing?");
         }
 
-        return ValidationResult.success(description);
+        return ValidationResult.success();
     }
 
     public static ValidationResult validateDeadlineCommand(String user_input) {
@@ -42,7 +42,18 @@ public class Validator {
         if (by_index == argsList.size()-1) {
             return ValidationResult.fail("You forgot to enter a deadline after /by...");
         }
-        return null;
+
+        String description = String.join(" ", argsList.subList(1, by_index)).trim();
+        if (description.isEmpty()) {
+            return ValidationResult.fail("You're description is empty.. why are you scheduling?");
+        }
+
+        String deadline = String.join(" ", argsList.subList(by_index+1, argsList.size())).trim();
+        if (deadline.isEmpty()) {
+            return ValidationResult.fail("You're deadline is empty.. why are you stressed?");
+        }
+
+        return ValidationResult.success();
     }
 
     //MARK
@@ -59,8 +70,8 @@ public class Validator {
             this.error_message = error_message;
         }
 
-        public static ValidationResult success(String error_message) {
-            return new ValidationResult(true, error_message);
+        public static ValidationResult success() {
+            return new ValidationResult(true, null);
         }
 
         public static ValidationResult fail(String error_message) {
