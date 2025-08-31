@@ -58,34 +58,32 @@ public class TaskManager {
 
 
    public void processDeadlineCommand(String user_input, UserInterface ui) {
+        Validator.ValidationResult validation = Validator.validateDeadlineCommand(user_input);
+
+       if(!validation.isValid()) {
+           ui.printValidationError(validation.getErrorMessage());
+       }
+
        String[] args = user_input.split(" ");
        List<String> argsList = Arrays.asList(args);
 
-       if (args.length < 4) { //need [deadline] [task] [/by] [deadline_by]
-           ui.printUserInputLengthError();
-           return;
-       }
-
-       Deadline deadline = null;
        //i=1 so that it skips 'deadline'
+       int by_index = -10;
        for (int i=1; i<argsList.size(); i++) {
            if (argsList.get(i).equals("/by")) {
-               if (isValidIndex(i + 1, argsList.size())) {
-                   //from /by - creates a sublist of the remaining elements and casts to strin separated by space
-                   deadline = new Deadline(
-                           String.join(" ", argsList.subList(1, i)), //string before /by
-                           String.join(" ", argsList.subList(i + 1, argsList.size())) //string after /by
-                   );
-                   break;
-               }
+               by_index = i;
+               break;
            }
        }
-       if (deadline != null) {
-           addTask(deadline);
-           ui.printDeadlineAdded(deadline);
-       } else {
-           ui.printDeadlineError();
-       }
+
+       Deadline deadline = new Deadline(
+               String.join(" ", argsList.subList(1, by_index)), //string before /by
+               String.join(" ", argsList.subList(by_index + 1, argsList.size())) //string after /by
+       );
+
+       addTask(deadline);
+       ui.printTaskAdded(deadline);
+
    }
 
    public void processEventCommand(String user_task, UserInterface ui) {
