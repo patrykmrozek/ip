@@ -89,6 +89,33 @@ public class TaskManager {
            ui.printUserInputLengthError();
            return;
        }
+
+       int from_index = -10;
+       int to_index = -10;
+
+       //find the index's of the /ffrom and /to
+       for (int i=1; i<argsList.size(); i++) {
+           if (argsList.get(i).equals("/from")) {
+               from_index = i;
+           } else if (argsList.get(i).equals("/to")) {
+               to_index = i;
+           }
+       }
+
+       if (from_index < 0 || to_index < 0 | from_index == to_index ||
+           from_index > to_index || to_index == argsList.size()) {
+           ui.printEventError();
+           return;
+       }
+
+       Event event = new Event(
+               String.join(" ", argsList.subList(1, from_index)),
+               String.join(" ", argsList.subList(from_index+1, to_index)),
+               String.join(" ", argsList.subList(to_index+1, argsList.size()))
+       );
+
+       addTask(event);
+       ui.printTaskAdded(event);
    }
 
    private boolean isValidIndex(int index, int size) {

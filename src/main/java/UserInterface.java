@@ -88,7 +88,7 @@ public class UserInterface {
     }
 
     public void printUserInputLengthError() {
-        System.out.println("INPUT LENGTH ERROR: Please format like \'mark task_index\'");
+        System.out.println("INPUT LENGTH ERROR: Please format like \"mark task_index\"");
     }
 
     public void printDeadlineAdded(Deadline deadline) {
@@ -96,7 +96,11 @@ public class UserInterface {
     }
 
     public void printDeadlineError() {
-        System.out.println("Deadline error!");
+        System.out.println("DEADLINE ERROR!\nFormat: deadline [deadline_name] /by [deadline_time]");
+    }
+
+    public void printEventError() {
+        System.out.println("EVENT ERROR!\nFormat: event [event_name] /from [start] /to [end]]");
     }
 
 
