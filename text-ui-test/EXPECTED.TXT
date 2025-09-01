@@ -23,3 +23,25 @@ mark [task_name] (mark done/undone)
 [T] [ ] a
 [T] [ ] b
 [T] [ ] c
+[D] [ ] this (by: then)
+[E] [ ] soemthing (from: now, to: later)
+1. [T] [ ] a
+2. [T] [ ] b
+3. [T] [ ] c
+4. [D] [ ] this (by: then)
+5. [E] [ ] soemthing (from: now, to: later)
+Task a has been marked as done!
+Task c has been marked as done!
+Task a has been unmarked!
+ERROR!!!!!!!!!
+You forgot to describe you're task buddy..
+Format: todo [task]
+ERROR!!!!!!!!!
+You need to say which task you want to mark..
+Format: mark [task_index]
+ERROR!!!!!!!!!
+Bro, you forgot some details of your deadline!
+Format: deadline [task] /by [deadline_day]
+ERROR!!!!!!!!!
+Your input was incorrect!
+Format: event [event] /from [start_time] /to [end_time]
