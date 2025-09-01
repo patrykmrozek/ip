@@ -56,6 +56,7 @@ public class TaskManager {
 
        if(!validation.isValid()) {
            ui.printValidationError(validation.getErrorMessage());
+           return;
        }
 
        String[] args = user_input.split(" ");
@@ -80,14 +81,16 @@ public class TaskManager {
 
    }
 
-   public void processEventCommand(String user_task, UserInterface ui) {
-       String[] args = user_task.split(" ");
-       List<String> argsList = Arrays.asList(args);
+   public void processEventCommand(String user_input, UserInterface ui) {
+        Validator.ValidationResult validation = Validator.validateEventCommand(user_input);
 
-       if (args.length < 6) { //need [event] [task] [/from] [start_day] [/to] [end_day]
-           ui.printUserInputLengthError();
+        if (!validation.isValid()) {
+           ui.printValidationError(validation.getErrorMessage());
            return;
-       }
+        }
+
+       String[] args = user_input.split(" ");
+       List<String> argsList = Arrays.asList(args);
 
        int from_index = -10;
        int to_index = -10;
@@ -100,13 +103,6 @@ public class TaskManager {
                to_index = i;
            }
        }
-
-       if (from_index < 0 || to_index < 0 | from_index == to_index ||
-           from_index > to_index || to_index == argsList.size()) {
-           ui.printEventError();
-           return;
-       }
-
        Event event = new Event(
                String.join(" ", argsList.subList(1, from_index)),
                String.join(" ", argsList.subList(from_index+1, to_index)),
