@@ -53,8 +53,8 @@ public class UserInterface {
     public void printTaskInstruction() {
         System.out.println(
             "a) todo [task]\n" +
-            "b) deadline [task] /by[deadline_day]\n" +
-            "c) event [event] /from[start_time day] /to[end time day]\n" +
+            "b) deadline [task] /by [deadline_day]\n" +
+            "c) event [event] /from [start_time day] /to [end time day]\n" +
             "list (lists your tasks)\n" +
             "mark [task_name] (mark done/undone)\n"
         );
@@ -73,17 +73,13 @@ public class UserInterface {
         System.out.println("Task " + user_input + " has been unmarked!");
     }
 
-    public void printTaskInvalidID() {
-        System.out.println("INVALID TASK ID");
-    }
-
     public void printTaskList(List<Task> tasks) {
         if (tasks.isEmpty()) {
             System.out.println("No tasks found!");
         }
 
         for (Task task : tasks) {
-            System.out.println(task.toString());
+            System.out.println(tasks.indexOf(task) + ". " + task.toString());
         }
     }
 

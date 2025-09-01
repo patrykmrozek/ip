@@ -13,6 +13,26 @@ public class TaskManager {
         tasks.add(task);
     }
 
+    //TODO
+    public void processTodoCommand(String user_input, UserInterface ui) {
+        Validator.ValidationResult validation = Validator.validateTodoCommand(user_input);
+
+        if (!validation.isValid()) {
+            ui.printValidationError(validation.getErrorMessage());
+            return;
+        }
+
+        String description = getTaskSubstring(user_input);
+        if (description.trim().isEmpty()) {
+            ui.printUserInputLengthError();
+        }
+
+        Task task = new Task(description);
+        addTask(task);
+        ui.printTaskAdded(task);
+    }
+
+    //MARK
    public void processMarkCommand(String user_input, UserInterface ui) {
        Validator.ValidationResult validation = Validator.validateMarkCommand(user_input, tasks);
 
@@ -32,25 +52,7 @@ public class TaskManager {
             }
    }
 
-   public void processTodoCommand(String user_input, UserInterface ui) {
-        Validator.ValidationResult validation = Validator.validateTodoCommand(user_input);
-
-        if (!validation.isValid()) {
-            ui.printValidationError(validation.getErrorMessage());
-            return;
-        }
-
-        String description = getTaskSubstring(user_input);
-        if (description.trim().isEmpty()) {
-            ui.printUserInputLengthError();
-        }
-
-       Task task = new Task(description);
-       addTask(task);
-       ui.printTaskAdded(task);
-   }
-
-
+   //DEADLINE
    public void processDeadlineCommand(String user_input, UserInterface ui) {
         Validator.ValidationResult validation = Validator.validateDeadlineCommand(user_input);
 
@@ -78,9 +80,9 @@ public class TaskManager {
 
        addTask(deadline);
        ui.printTaskAdded(deadline);
-
    }
 
+   //EVENT
    public void processEventCommand(String user_input, UserInterface ui) {
         Validator.ValidationResult validation = Validator.validateEventCommand(user_input);
 
@@ -111,10 +113,6 @@ public class TaskManager {
 
        addTask(event);
        ui.printTaskAdded(event);
-   }
-
-   private boolean isValidIndex(int index, int size) {
-        return index >= 0 && index < size;
    }
 
     public List<Task> getTasks() {
