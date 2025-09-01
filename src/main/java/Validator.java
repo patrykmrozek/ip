@@ -18,6 +18,7 @@ public class Validator {
         return ValidationResult.success();
     }
 
+    //DEADLINE
     public static ValidationResult validateDeadlineCommand(String user_input) {
         String[] user_input_split = user_input.split(" ");
         List<String> argsList = Arrays.asList(user_input_split);
@@ -57,6 +58,24 @@ public class Validator {
     }
 
     //MARK
+    public static ValidationResult validateMarkCommand(String user_input, List<Task> tasks) {
+        String[] user_input_split = user_input.split(" ");
+
+        if (user_input_split.length < 2) {
+            return ValidationResult.fail("You need to say which task you want to mark..\nFormat it like this: mark [index]");
+        }
+
+        try {
+            int mark_index = Integer.parseInt(user_input_split[1]);
+            if (mark_index > tasks.size() || mark_index < 0) {
+                return ValidationResult.fail("The index you entered is out of bounds...");
+            }
+            return ValidationResult.success();
+        } catch (NumberFormatException e) {
+            return  ValidationResult.fail("The index needs to be a number dude");
+        }
+
+    }
 
 
     //nested public class that holds the results of a validations

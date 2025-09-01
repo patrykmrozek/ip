@@ -14,28 +14,22 @@ public class TaskManager {
     }
 
    public void processMarkCommand(String user_input, UserInterface ui) {
+       Validator.ValidationResult validation = Validator.validateMarkCommand(user_input, tasks);
+
+       if (!validation.isValid()) {
+           ui.printValidationError(validation.getErrorMessage());
+           return;
+       }
+
         String[] args = user_input.split(" ");
 
-        if (args.length < 2) { //if user entered less than 2 arguments
-            ui.printUserInputLengthError();
-            return;
-        }
-
-        try {
-            int index = Integer.parseInt(args[1]); //get the index of the task the user wants to mark
-            if (isValidIndex(index, tasks.size())) {
-                tasks.get(index).toggleDone();
-                if  (tasks.get(index).isDone()) {
-                    ui.printTaskMarked(tasks.get(index).getDescription());
-                } else {
-                    ui.printTaskUnmarked(tasks.get(index).getDescription());
-                }
-            } else {
-                ui.printTaskInvalidID();
+        int index = Integer.parseInt(args[1]); //get the index of the task the user wants to mark
+        tasks.get(index).toggleDone();
+        if  (tasks.get(index).isDone()) {
+            ui.printTaskMarked(tasks.get(index).getDescription());
+        } else {
+            ui.printTaskUnmarked(tasks.get(index).getDescription());
             }
-        } catch (NumberFormatException e) {
-            ui.printTaskInvalidID();
-        }
    }
 
    public void processTodoCommand(String user_input, UserInterface ui) {
