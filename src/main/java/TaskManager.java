@@ -24,10 +24,6 @@ public class TaskManager {
         }
 
         String description = getTaskSubstring(user_input);
-        if (description.trim().isEmpty()) {
-            ui.printUserInputLengthError();
-        }
-
         Task task = new Task(description);
         addTask(task);
         ui.printTaskAdded(task);
@@ -45,7 +41,7 @@ public class TaskManager {
 
         String[] args = user_input.split(" ");
 
-        int index = Integer.parseInt(args[1]); //get the index of the task the user wants to mark
+        int index = Integer.parseInt(args[1])-1; //get the index of the task the user wants to mark
         tasks.get(index).toggleDone();
         if  (tasks.get(index).isDone()) {
             ui.printTaskMarked(tasks.get(index).getDescription());

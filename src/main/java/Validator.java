@@ -28,7 +28,7 @@ public class Validator {
 
         try {
             int mark_index = Integer.parseInt(user_input_split[1]);
-            if (mark_index > tasks.size() || mark_index < 0) {
+            if (mark_index > tasks.size() || mark_index <= 0) {
                 return ValidationResult.fail("The index you entered is out of bounds...");
             }
             return ValidationResult.success();

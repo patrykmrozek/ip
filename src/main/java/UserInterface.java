@@ -94,8 +94,8 @@ public class UserInterface {
             System.out.println("No tasks found!");
         }
 
-        for (Task task : tasks) {
-            System.out.println(tasks.indexOf(task) + ". " + task.toString());
+        for (int i=0; i<tasks.size(); i++) {
+            System.out.println((i+1) + ". " + tasks.get(i).toString());
         }
     }
 
