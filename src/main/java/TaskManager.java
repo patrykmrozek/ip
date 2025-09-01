@@ -14,8 +14,8 @@ public class TaskManager {
     }
 
     //TTODO
-    public void processTodoCommand(String user_input, UserInterface ui) {
-        Validator.ValidationResult validation = Validator.validateTodoCommand(user_input);
+    public void processTodoCommand(String userInput, UserInterface ui) {
+        Validator.ValidationResult validation = Validator.validateTodoCommand(userInput);
 
         if (!validation.isValid()) {
             ui.printValidationError(validation.getErrorMessage());
@@ -23,15 +23,15 @@ public class TaskManager {
             return;
         }
 
-        String description = getTaskSubstring(user_input);
+        String description = getTaskSubstring(userInput);
         Task task = new Task(description);
         addTask(task);
         ui.printTaskAdded(task);
     }
 
     //MARK
-   public void processMarkCommand(String user_input, UserInterface ui) {
-       Validator.ValidationResult validation = Validator.validateMarkCommand(user_input, tasks);
+   public void processMarkCommand(String userInput, UserInterface ui) {
+       Validator.ValidationResult validation = Validator.validateMarkCommand(userInput, tasks);
 
        if (!validation.isValid()) {
            ui.printValidationError(validation.getErrorMessage());
@@ -39,7 +39,7 @@ public class TaskManager {
            return;
        }
 
-        String[] args = user_input.split(" ");
+        String[] args = userInput.split(" ");
 
         int index = Integer.parseInt(args[1])-1; //get the index of the task the user wants to mark
         tasks.get(index).toggleDone();
@@ -51,8 +51,8 @@ public class TaskManager {
    }
 
    //DEADLINE
-   public void processDeadlineCommand(String user_input, UserInterface ui) {
-        Validator.ValidationResult validation = Validator.validateDeadlineCommand(user_input);
+   public void processDeadlineCommand(String userInput, UserInterface ui) {
+        Validator.ValidationResult validation = Validator.validateDeadlineCommand(userInput);
 
        if(!validation.isValid()) {
            ui.printValidationError(validation.getErrorMessage());
@@ -60,21 +60,21 @@ public class TaskManager {
            return;
        }
 
-       String[] args = user_input.split(" ");
+       String[] args = userInput.split(" ");
        List<String> argsList = Arrays.asList(args);
 
        //i=1 so that it skips 'deadline'
-       int by_index = -10;
+       int byIndex = -10;
        for (int i=1; i<argsList.size(); i++) {
            if (argsList.get(i).equals("/by")) {
-               by_index = i;
+               byIndex = i;
                break;
            }
        }
 
        Deadline deadline = new Deadline(
-               String.join(" ", argsList.subList(1, by_index)), //string before /by
-               String.join(" ", argsList.subList(by_index + 1, argsList.size())) //string after /by
+               String.join(" ", argsList.subList(1, byIndex)), //string before /by
+               String.join(" ", argsList.subList(byIndex + 1, argsList.size())) //string after /by
        );
 
        addTask(deadline);
@@ -82,8 +82,8 @@ public class TaskManager {
    }
 
    //EVENT
-   public void processEventCommand(String user_input, UserInterface ui) {
-        Validator.ValidationResult validation = Validator.validateEventCommand(user_input);
+   public void processEventCommand(String userInput, UserInterface ui) {
+        Validator.ValidationResult validation = Validator.validateEventCommand(userInput);
 
         if (!validation.isValid()) {
            ui.printValidationError(validation.getErrorMessage());
@@ -91,24 +91,24 @@ public class TaskManager {
            return;
         }
 
-       String[] args = user_input.split(" ");
+       String[] args = userInput.split(" ");
        List<String> argsList = Arrays.asList(args);
 
-       int from_index = -10;
-       int to_index = -10;
+       int fromIndex = -10;
+       int toIndex = -10;
 
        //find the index's of the /ffrom and /to
        for (int i=1; i<argsList.size(); i++) {
            if (argsList.get(i).equals("/from")) {
-               from_index = i;
+               fromIndex = i;
            } else if (argsList.get(i).equals("/to")) {
-               to_index = i;
+               toIndex = i;
            }
        }
        Event event = new Event(
-               String.join(" ", argsList.subList(1, from_index)),
-               String.join(" ", argsList.subList(from_index+1, to_index)),
-               String.join(" ", argsList.subList(to_index+1, argsList.size()))
+               String.join(" ", argsList.subList(1, fromIndex)),
+               String.join(" ", argsList.subList(fromIndex+1, toIndex)),
+               String.join(" ", argsList.subList(toIndex+1, argsList.size()))
        );
 
        addTask(event);
@@ -119,8 +119,8 @@ public class TaskManager {
         return new ArrayList<>(tasks);
     }
 
-    public String getTaskSubstring(String user_input) {
-        return user_input.substring(user_input.split(" ")[0].length()+1); //skips the keyword
+    public String getTaskSubstring(String userInput) {
+        return userInput.substring(userInput.split(" ")[0].length()+1); //skips the keyword
     }
 
 }

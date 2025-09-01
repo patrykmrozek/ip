@@ -16,7 +16,7 @@ Type "bye" or "exit" to exit
 ________________________
 a) todo [task]
 b) deadline [task] /by [deadline_day]
-c) event [event] /from [start_time] /to [end_time]
+c) event [event] /from [startTime] /to [endTime]
 list (lists your tasks)
 mark [task_name] (mark done/undone)
 
@@ -44,4 +44,4 @@ Bro, you forgot some details of your deadline!
 Format: deadline [task] /by [deadline_day]
 ERROR!!!!!!!!!
 Your input was incorrect!
-Format: event [event] /from [start_time] /to [end_time]
+Format: event [event] /from [startTime] /to [endTime]

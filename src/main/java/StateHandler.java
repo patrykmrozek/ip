@@ -12,8 +12,8 @@ public class StateHandler {
 
     public Zoro.State handleMenu() {
         ui.printMenuIntro();
-        String user_input = inputHandler.getUserInput();
-        switch (user_input) {
+        String userInput = inputHandler.getUserInput();
+        switch (userInput) {
             case "echo":
             case "1":
                 return Zoro.State.ECHO;
@@ -36,8 +36,8 @@ public class StateHandler {
     public Zoro.State handleEcho() {
         ui.printEchoInstruction();
         while (true) {
-            String user_input = inputHandler.getUserInput();
-            switch (user_input) {
+            String userInput = inputHandler.getUserInput();
+            switch (userInput) {
                 case "bye":
                 case "exit":
                     ui.printGoodbye();
@@ -47,7 +47,7 @@ public class StateHandler {
                 case "back":
                     return Zoro.State.MENU;
                 default:
-                    ui.printEchoMesssage(user_input);
+                    ui.printEchoMesssage(userInput);
             }
         }
     }
@@ -58,35 +58,35 @@ public class StateHandler {
     public Zoro.State handleTask() {
         ui.printTaskInstruction();
         while (true) {
-            String user_input = inputHandler.getUserInput();
-            String user_command = user_input.split(" ")[0];
-            switch (user_command) {
-                case "todo":
-                case "a":
-                    taskManager.processTodoCommand(user_input, ui);
-                    break;
-                case "deadline":
-                case "b":
-                    taskManager.processDeadlineCommand(user_input, ui);
-                    break;
-                case "event":
-                case "c":
-                    taskManager.processEventCommand(user_input, ui);
-                    break;
-                case "list":
-                    ui.printTaskList(taskManager.getTasks());
-                    break;
-                case "mark":
-                    taskManager.processMarkCommand(user_input, ui);
-                    break;
-                case "menu":
-                case "back":
-                case "return":
-                case "zoro":
-                    return Zoro.State.MENU;
-                case "bye":
-                    ui.printGoodbye();
-                    return Zoro.State.EXIT;
+            String userInput = inputHandler.getUserInput();
+            String userCommand = userInput.split(" ")[0];
+            switch (userCommand) {
+            case "todo":
+            case "a":
+                taskManager.processTodoCommand(userInput, ui);
+                break;
+            case "deadline":
+            case "b":
+                taskManager.processDeadlineCommand(userInput, ui);
+                break;
+            case "event":
+            case "c":
+                taskManager.processEventCommand(userInput, ui);
+                break;
+            case "list":
+                ui.printTaskList(taskManager.getTasks());
+                break;
+            case "mark":
+                taskManager.processMarkCommand(userInput, ui);
+                break;
+            case "menu":
+            case "back":
+            case "return":
+            case "zoro":
+                return Zoro.State.MENU;
+            case "bye":
+                ui.printGoodbye();
+                return Zoro.State.EXIT;
             }
         }
     }

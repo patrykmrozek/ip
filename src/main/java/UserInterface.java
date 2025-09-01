@@ -42,8 +42,8 @@ public class UserInterface {
         );
     }
 
-    public void printEchoMesssage(String user_input) {
-        System.out.println(user_input);
+    public void printEchoMesssage(String userInput) {
+        System.out.println(userInput);
     }
 
 
@@ -54,7 +54,7 @@ public class UserInterface {
         System.out.println(
             "a) todo [task]\n" +
             "b) deadline [task] /by [deadline_day]\n" +
-            "c) event [event] /from [start_time] /to [end_time]\n" +
+            "c) event [event] /from [startTime] /to [endTime]\n" +
             "list (lists your tasks)\n" +
             "mark [task_name] (mark done/undone)\n"
         );
@@ -73,11 +73,11 @@ public class UserInterface {
     }
 
     public void printValidInputEvent() {
-        System.out.println("Format: event [event] /from [start_time] /to [end_time]");
+        System.out.println("Format: event [event] /from [startTime] /to [endTime]");
     }
 
-    public void printTaskMarked(String user_input) {
-        System.out.println("Task " + user_input + " has been marked as done!");
+    public void printTaskMarked(String userInput) {
+        System.out.println("Task " + userInput + " has been marked as done!");
     }
 
    public void printTaskAdded(Task task) {
@@ -85,8 +85,8 @@ public class UserInterface {
 
    }
 
-    public void printTaskUnmarked(String user_input) {
-        System.out.println("Task " + user_input + " has been unmarked!");
+    public void printTaskUnmarked(String userInput) {
+        System.out.println("Task " + userInput + " has been unmarked!");
     }
 
     public void printTaskList(List<Task> tasks) {
@@ -110,8 +110,8 @@ public class UserInterface {
         System.out.println("INVALID INPUT!");
     }
 
-    public void printValidationError(String error_message) {
-        System.out.println("ERROR!!!!!!!!!\n" + error_message);
+    public void printValidationError(String errorMessage) {
+        System.out.println("ERROR!!!!!!!!!\n" + errorMessage);
     }
 
 
