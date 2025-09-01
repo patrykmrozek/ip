@@ -13,12 +13,13 @@ public class TaskManager {
         tasks.add(task);
     }
 
-    //TODO
+    //TTODO
     public void processTodoCommand(String user_input, UserInterface ui) {
         Validator.ValidationResult validation = Validator.validateTodoCommand(user_input);
 
         if (!validation.isValid()) {
             ui.printValidationError(validation.getErrorMessage());
+            ui.printValidInputTodo();
             return;
         }
 
@@ -38,6 +39,7 @@ public class TaskManager {
 
        if (!validation.isValid()) {
            ui.printValidationError(validation.getErrorMessage());
+           ui.printValidInputMark();
            return;
        }
 
@@ -58,6 +60,7 @@ public class TaskManager {
 
        if(!validation.isValid()) {
            ui.printValidationError(validation.getErrorMessage());
+           ui.printValidInputDeadline();
            return;
        }
 
@@ -88,6 +91,7 @@ public class TaskManager {
 
         if (!validation.isValid()) {
            ui.printValidationError(validation.getErrorMessage());
+           ui.printValidInputEvent();
            return;
         }
 

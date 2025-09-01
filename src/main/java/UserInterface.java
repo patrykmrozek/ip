@@ -54,10 +54,26 @@ public class UserInterface {
         System.out.println(
             "a) todo [task]\n" +
             "b) deadline [task] /by [deadline_day]\n" +
-            "c) event [event] /from [start_time day] /to [end time day]\n" +
+            "c) event [event] /from [start_time] /to [end_time]\n" +
             "list (lists your tasks)\n" +
             "mark [task_name] (mark done/undone)\n"
         );
+    }
+
+    public void printValidInputTodo() {
+        System.out.println("Format: todo [task]");
+    }
+
+    public void printValidInputMark() {
+        System.out.println("Format: mark [task_index]");
+    }
+
+    public void printValidInputDeadline() {
+        System.out.println("Format: deadline [task] /by [deadline_day]");
+    }
+
+    public void printValidInputEvent() {
+        System.out.println("Format: event [event] /from [start_time] /to [end_time]");
     }
 
     public void printTaskMarked(String user_input) {

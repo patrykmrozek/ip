@@ -7,7 +7,7 @@ public class Validator {
         String[] user_input_split = user_input.split(" ");
 
         if (user_input_split.length < 2) {
-            return ValidationResult.fail("You forgot to describe you're task buddy..\nFormat it like this: todo [description]");
+            return ValidationResult.fail("You forgot to describe you're task buddy..");
         }
 
         String description = user_input_split[1];
@@ -23,7 +23,7 @@ public class Validator {
         String[] user_input_split = user_input.split(" ");
 
         if (user_input_split.length < 2) {
-            return ValidationResult.fail("You need to say which task you want to mark..\nFormat it like this: mark [index]");
+            return ValidationResult.fail("You need to say which task you want to mark..");
         }
 
         try {
@@ -45,8 +45,7 @@ public class Validator {
         String[] user_input_split = user_input.split(" ");
         List<String> argsList = Arrays.asList(user_input_split);
         if (argsList.size() < 4) {
-            return ValidationResult.fail("Bro, you forgot some details of your deadline!\n" +
-                    "Format: deadline [description] /by [deadline_date]");
+            return ValidationResult.fail("Bro, you forgot some details of your deadline!");
         }
 
         int by_index = -10;
@@ -83,8 +82,7 @@ public class Validator {
     public static ValidationResult validateEventCommand(String user_input) {
         String[] user_input_split = user_input.split(" ");
         if (user_input_split.length < 6) {
-            return ValidationResult.fail("Your input was incorrect!\n" +
-                    "Format like this: event [task] /from [start] /to [end]");
+            return ValidationResult.fail("Your input was incorrect!");
         }
 
         String[] args = user_input.split(" ");
