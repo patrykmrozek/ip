@@ -1,7 +1,10 @@
 import java.util.Arrays;
 import java.util.List;
 
+
 public class Validator {
+
+
     //TTODO
     public static ValidationResult validateTodoCommand(String userInput) {
         String[] userInputSplit = userInput.split(" ");
@@ -17,6 +20,7 @@ public class Validator {
 
         return ValidationResult.success();
     }
+
 
     //MARK
     public static ValidationResult validateMarkCommand(String userInput, List<Task> tasks) {
@@ -37,7 +41,6 @@ public class Validator {
         }
 
     }
-
 
 
     //DEADLINE
@@ -77,6 +80,7 @@ public class Validator {
 
         return ValidationResult.success();
     }
+
 
     //EVENT
     public static ValidationResult validateEventCommand(String userInput) {
@@ -126,6 +130,7 @@ public class Validator {
         return ValidationResult.success();
 
     }
+
 
 
     //nested public class that holds the results of a validations

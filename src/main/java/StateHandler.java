@@ -13,6 +13,9 @@ public class StateHandler {
     public Zoro.State handleMenu() {
         ui.printMenuIntro();
         String userInput = inputHandler.getUserInput();
+        if (userInput == null) {
+            return Zoro.State.EXIT;
+        }
         switch (userInput) {
             case "echo":
             case "1":
@@ -37,6 +40,9 @@ public class StateHandler {
         ui.printEchoInstruction();
         while (true) {
             String userInput = inputHandler.getUserInput();
+            if (userInput == null) {
+                return Zoro.State.EXIT;
+            }
             switch (userInput) {
                 case "bye":
                 case "exit":
@@ -59,18 +65,18 @@ public class StateHandler {
         ui.printTaskInstruction();
         while (true) {
             String userInput = inputHandler.getUserInput();
+            if (userInput == null) {
+                return Zoro.State.EXIT;
+            }
             String userCommand = userInput.split(" ")[0];
             switch (userCommand) {
             case "todo":
-            case "a":
                 taskManager.processTodoCommand(userInput, ui);
                 break;
             case "deadline":
-            case "b":
                 taskManager.processDeadlineCommand(userInput, ui);
                 break;
             case "event":
-            case "c":
                 taskManager.processEventCommand(userInput, ui);
                 break;
             case "list":
@@ -87,6 +93,8 @@ public class StateHandler {
             case "bye":
                 ui.printGoodbye();
                 return Zoro.State.EXIT;
+            default:
+                ui.printInvalidInput();
             }
         }
     }

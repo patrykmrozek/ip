@@ -9,7 +9,10 @@ public class InputHandler {
     }
 
     public String getUserInput() {
-        return scanner.nextLine().trim();
+        if (scanner.hasNextLine()) {
+            return scanner.nextLine().trim();
+        }
+        return null;
     }
 
     public void closeScanner() {
