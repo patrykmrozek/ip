@@ -53,7 +53,7 @@ public class StateHandler {
                 case "back":
                     return Zoro.State.MENU;
                 default:
-                    ui.printEchoMesssage(userInput);
+                    ui.printEchoMessage(userInput);
             }
         }
     }

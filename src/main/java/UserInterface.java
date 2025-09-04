@@ -42,7 +42,7 @@ public class UserInterface {
         );
     }
 
-    public void printEchoMesssage(String userInput) {
+    public void printEchoMessage(String userInput) {
         System.out.println(userInput);
     }
 
