@@ -1,3 +1,10 @@
+package zoro.core;
+
+import zoro.ui.UserInterface;
+import zoro.ui.InputHandler;
+
+
+
 public class StateHandler {
     private final UserInterface ui;
     private final TaskManager taskManager;
@@ -10,48 +17,48 @@ public class StateHandler {
     }
 
 
-    public Zoro.State handleMenu() {
+    public State handleMenu() {
         ui.printMenuIntro();
         String userInput = inputHandler.getUserInput();
         if (userInput == null) {
-            return Zoro.State.EXIT;
+            return State.EXIT;
         }
         switch (userInput) {
             case "echo":
             case "1":
-                return Zoro.State.ECHO;
+                return State.ECHO;
             case "list":
             case "task":
             case "todo":
             case "2":
             case "store list":
-                return Zoro.State.TASK;
+                return State.TASK;
             case "exit":
             case "bye":
                 ui.printGoodbye();
-                return Zoro.State.EXIT;
+                return State.EXIT;
             default:
                 ui.printInvalidInput();
-                return Zoro.State.MENU;
+                return State.MENU;
         }
     }
 
-    public Zoro.State handleEcho() {
+    public State handleEcho() {
         ui.printEchoInstruction();
         while (true) {
             String userInput = inputHandler.getUserInput();
             if (userInput == null) {
-                return Zoro.State.EXIT;
+                return State.EXIT;
             }
             switch (userInput) {
                 case "bye":
                 case "exit":
                     ui.printGoodbye();
-                    return Zoro.State.EXIT;
+                    return State.EXIT;
                 case "menu":
                 case "return":
                 case "back":
-                    return Zoro.State.MENU;
+                    return State.MENU;
                 default:
                     ui.printEchoMessage(userInput);
             }
@@ -61,12 +68,12 @@ public class StateHandler {
     //instead of creating a state for each task - TASK is the state and ttodo, deadline, event are like substates
     //that live within the main TASK state - they are all going to be internally processed
     // via the taskManager
-    public Zoro.State handleTask() {
+    public State handleTask() {
         ui.printTaskInstruction();
         while (true) {
             String userInput = inputHandler.getUserInput();
             if (userInput == null) {
-                return Zoro.State.EXIT;
+                return State.EXIT;
             }
             String userCommand = userInput.split(" ")[0];
             switch (userCommand) {
@@ -89,10 +96,10 @@ public class StateHandler {
             case "back":
             case "return":
             case "zoro":
-                return Zoro.State.MENU;
+                return State.MENU;
             case "bye":
                 ui.printGoodbye();
-                return Zoro.State.EXIT;
+                return State.EXIT;
             default:
                 ui.printInvalidInput();
             }

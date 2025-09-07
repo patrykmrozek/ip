@@ -1,3 +1,5 @@
+package zoro.model;
+
 public class Deadline extends Task {
     protected String deadlineBy;
 

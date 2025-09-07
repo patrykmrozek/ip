@@ -1,6 +1,13 @@
+package zoro.core;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import zoro.ui.UserInterface;
+import zoro.model.Task;
+import zoro.model.Deadline;
+import zoro.model.Event;
+import zoro.validation.Validator;
 
 public class TaskManager {
     private final List<Task> tasks; //initialize to a List so that it works flexibly with any 'list'
