@@ -1,9 +1,11 @@
+package zoro.model;
+
 public class Task {
     String taskType;
     protected String description;
     protected boolean isDone;
 
-    Task(String description) {
+    public Task(String description) {
         this.description = description;
         this.isDone = false;
         this.taskType = "[T]";

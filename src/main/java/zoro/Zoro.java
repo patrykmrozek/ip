@@ -1,3 +1,11 @@
+package zoro;
+
+import zoro.core.State;
+import zoro.ui.UserInterface;
+import zoro.ui.InputHandler;
+import zoro.core.TaskManager;
+import zoro.core.StateHandler;
+
 public class Zoro {
 
     private State ZoroState;
@@ -12,15 +20,6 @@ public class Zoro {
         this.stateHandler = new StateHandler(ui, taskManager, inputHandler);
         this.ZoroState = State.MENU;
     }
-
-    /**enum to keep track of state**/
-    public enum State {
-        MENU,
-        ECHO,
-        TASK,
-        EXIT
-    } //decided to keep this in Zoro rather than StateHandler
-
 
     public void run() {//the only function that has to be run in main
         try {

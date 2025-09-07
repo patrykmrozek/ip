@@ -1,4 +1,7 @@
+package zoro.ui;
+
 import java.util.List;
+import zoro.model.Task;
 
 public class UserInterface {
 
