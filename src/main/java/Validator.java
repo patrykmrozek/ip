@@ -130,7 +130,7 @@ public class Validator {
             return ValidationResult.fail("Don't end with keywords. That's like stopping mid-sword swing.");
         }
         if (fromIndex >= toIndex) {
-            return ValidationResult.fail("'from' comes before '/to'. Even I know that much about directions.");
+            return ValidationResult.fail("'from' should come before '/to'. Even I know that much about directions.");
         }
 
         String description = String.join(" ", argsList.subList(1, fromIndex));
