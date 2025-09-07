@@ -10,12 +10,14 @@ public class Validator {
         String[] userInputSplit = userInput.split(" ");
 
         if (userInputSplit.length < 2) {
-            return ValidationResult.fail("You forgot to describe you're task buddy..");
+            return ValidationResult.fail("You can't train without knowing what you're training for. " +
+                    "Tell me what task you need to do.");
         }
 
         String description = userInputSplit[1];
         if (description.isEmpty()) {
-            return ValidationResult.fail("You're description is empty.. why are you scheduling nothing?");
+            return ValidationResult.fail("That's as empty as my sense of direction. " +
+                    "Give me a real task description");
         }
 
         return ValidationResult.success();
@@ -27,17 +29,19 @@ public class Validator {
         String[] userInputSplit = userInput.split(" ");
 
         if (userInputSplit.length < 2) {
-            return ValidationResult.fail("You need to say which task you want to mark..");
+            return ValidationResult.fail("Which task are you marking? I may get lost easily, " +
+                    "but at least I know what I'm looking for.");
         }
 
         try {
             int markIndex = Integer.parseInt(userInputSplit[1]);
             if (markIndex > tasks.size() || markIndex <= 0) {
-                return ValidationResult.fail("The index you entered is out of bounds...");
+                return ValidationResult.fail("That index doesn't exist. Even I wouldn't get that lost.");
             }
             return ValidationResult.success();
         } catch (NumberFormatException e) {
-            return  ValidationResult.fail("The index needs to be a number dude");
+            return  ValidationResult.fail("Use numbers, not letters. I may use swords," +
+                    " but I still know how to count.");
         }
 
     }
@@ -48,7 +52,8 @@ public class Validator {
         String[] userInputSplit = userInput.split(" ");
         List<String> argsList = Arrays.asList(userInputSplit);
         if (argsList.size() < 4) {
-            return ValidationResult.fail("Bro, you forgot some details of your deadline!");
+            return ValidationResult.fail("A swordsman needs proper form. " +
+                    "Your deadline command is missing parts - fix it!");
         }
 
         int byIndex = -10;
@@ -59,23 +64,28 @@ public class Validator {
             }
         }
         if (byIndex < 0) {
-            return ValidationResult.fail("Yo you forgot the /by keyword, lock in bro!!");
+            return ValidationResult.fail("Where's the '/by' keyword? Even Sanji could follow instructions" +
+                    " better than this.");
         }
         if (byIndex == 1) {
-            return ValidationResult.fail("Dude, you're meant to provide the deadline description first..");
+            return ValidationResult.fail("Description first, then '/by'." +
+                    " It's like sword stance - order matters.");
         }
         if (byIndex == argsList.size()-1) {
-            return ValidationResult.fail("You forgot to enter a deadline after /by...");
+            return ValidationResult.fail("You put '/by' but forgot the actual deadline." +
+                    "That's like drawing your sword and not swinging it.");
         }
 
         String description = String.join(" ", argsList.subList(1, byIndex)).trim();
         if (description.isEmpty()) {
-            return ValidationResult.fail("You're description is empty.. why are you scheduling?");
+            return ValidationResult.fail("Empty description? I don't train for nothing," +
+                    " and you shouldn't schedule nothing either.");
         }
 
         String deadline = String.join(" ", argsList.subList(byIndex+1, argsList.size())).trim();
         if (deadline.isEmpty()) {
-            return ValidationResult.fail("You're deadline is empty.. why are you stressed?");
+            return ValidationResult.fail("No deadline given? How are you supposed to" +
+                    " push yourself without a target?");
         }
 
         return ValidationResult.success();
@@ -86,7 +96,8 @@ public class Validator {
     public static ValidationResult validateEventCommand(String userInput) {
         String[] userInputSplit = userInput.split(" ");
         if (userInputSplit.length < 6) {
-            return ValidationResult.fail("Your input was incorrect!");
+            return ValidationResult.fail("This command is weaker than my sense of direction." +
+                    " Add more details!");
         }
 
         String[] args = userInput.split(" ");
@@ -104,19 +115,22 @@ public class Validator {
         }
 
         if (fromIndex < 0) {
-            return ValidationResult.fail("You must have the /from keyword when setting an event");
+            return ValidationResult.fail("Missing '/from' keyword. Every battle has a start -" +
+                    " so should your event.");
         }
         if (toIndex < 0) {
-            return ValidationResult.fail("You must have the /to keyword when setting an event");
+            return ValidationResult.fail("Missing '/to' keyword. Every training session has an end" +
+                    " - so should your event.");
         }
         if (fromIndex == 1 || toIndex == 1) {
-            return ValidationResult.fail("Your event name goes first, right after the 'event' keyword");
+            return ValidationResult.fail("Event name goes first!" +
+                    " It's like announcing your attack before you strike.");
         }
         if (fromIndex == argsList.size()-1 ||  toIndex == argsList.size()-1) {
-            return ValidationResult.fail("You cant end with a keyword");
+            return ValidationResult.fail("Don't end with keywords. That's like stopping mid-sword swing.");
         }
         if (fromIndex >= toIndex) {
-            return ValidationResult.fail("You must define the /from before the /to");
+            return ValidationResult.fail("'from' comes before '/to'. Even I know that much about directions.");
         }
 
         String description = String.join(" ", argsList.subList(1, fromIndex));
@@ -124,7 +138,7 @@ public class Validator {
         String endTime = String.join(" ", argsList.subList(toIndex+1, argsList.size()));
 
         if (description.isEmpty() || startTime.isEmpty() || endTime.isEmpty()) {
-            return ValidationResult.fail("You cant leave any empty fields..");
+            return ValidationResult.fail("Empty fields are like dull blades - useless. Fill them all in properly");
         }
 
         return ValidationResult.success();
