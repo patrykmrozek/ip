@@ -65,9 +65,6 @@ public class StateHandler {
         }
     }
 
-    //instead of creating a state for each task - TASK is the state and ttodo, deadline, event are like substates
-    //that live within the main TASK state - they are all going to be internally processed
-    // via the taskManager
     public State handleTask() {
         ui.printTaskInstruction();
         while (true) {
@@ -91,6 +88,9 @@ public class StateHandler {
                 break;
             case "mark":
                 taskManager.processMarkCommand(userInput, ui);
+                break;
+            case "delete":
+                taskManager.processDeleteCommand(userInput, ui);
                 break;
             case "menu":
             case "back":

@@ -148,6 +148,34 @@ public class Validator {
 
     }
 
+    public static ValidationResult validateDeleteCommand(String userInput, List<Task> tasks) {
+        String[] userInputSplit = userInput.split(" ");
+
+        if (userInputSplit.length < 2) {
+            return ValidationResult.fail("You can't defeat your enemy if you don't have any" +
+                    "Tell me what you need me to delete.");
+        }
+
+        String description = userInputSplit[1];
+        if (description.isEmpty()) {
+            return ValidationResult.fail("That's as empty as my sense of direction. " +
+                    "Give me the name of your opponent, I'm a bounty hunter after all.");
+        }
+
+        try {
+            int deleteIndex = Integer.parseInt(userInputSplit[1]);
+            //System.out.println("DELETE INDEX: " + deleteIndex);
+
+            if (deleteIndex > tasks.size() || deleteIndex <= 0) {
+                return ValidationResult.fail("That index doesn't exist. Even I wouldn't get that lost.");
+            }
+            return ValidationResult.success();
+        } catch (NumberFormatException e) {
+            return ValidationResult.fail("Use numbers, not letters. I may use swords," +
+                    " but I still know how to count.");
+        }
+    }
+
 
 
     //nested public class that holds the results of a validations
@@ -177,5 +205,4 @@ public class Validator {
             return errorMessage;
         }
     }
-
 }

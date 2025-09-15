@@ -81,6 +81,10 @@ public class UserInterface {
         System.out.println("Proper form: event [event] /from [startTime] /to [endTime] - Schedule like a warrior!");
     }
 
+    public void printValidInputDelete() {
+        System.out.println("Proper form: delete [task_number]");
+    }
+
     public void printTaskMarked(String userInput) {
         System.out.println("Task " + userInput + " has been conquered. Time for the next challenge!");
     }
@@ -92,6 +96,10 @@ public class UserInterface {
 
     public void printTaskUnmarked(String userInput) {
         System.out.println("Task " + userInput + " is back in action. Sometimes you gotta fight the same battle twice.");
+    }
+
+    public void printTaskDeleted(Task task) {
+        System.out.println("Target: " + task.toString() + " has been eliminated");
     }
 
     public void printTaskList(List<Task> tasks) {
@@ -122,7 +130,5 @@ public class UserInterface {
         System.out.println(errorMessage);
         System.out.println("Fix your form and try again!");
     }
-
-
 
 }

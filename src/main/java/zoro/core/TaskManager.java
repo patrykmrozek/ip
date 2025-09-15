@@ -10,7 +10,7 @@ import zoro.model.Event;
 import zoro.validation.Validator;
 
 public class TaskManager {
-    private final List<Task> tasks; //initialize to a List so that it works flexibly with any 'list'
+    private final List<Task> tasks;
 
     public TaskManager() {
         this.tasks = new ArrayList<>();
@@ -20,7 +20,7 @@ public class TaskManager {
         tasks.add(task);
     }
 
-    //TTODO
+
     public void processTodoCommand(String userInput, UserInterface ui) {
         Validator.ValidationResult validation = Validator.validateTodoCommand(userInput);
 
@@ -36,7 +36,7 @@ public class TaskManager {
         ui.printTaskAdded(task);
     }
 
-    //MARK
+
    public void processMarkCommand(String userInput, UserInterface ui) {
        Validator.ValidationResult validation = Validator.validateMarkCommand(userInput, tasks);
 
@@ -57,7 +57,7 @@ public class TaskManager {
             }
    }
 
-   //DEADLINE
+
    public void processDeadlineCommand(String userInput, UserInterface ui) {
         Validator.ValidationResult validation = Validator.validateDeadlineCommand(userInput);
 
@@ -70,7 +70,6 @@ public class TaskManager {
        String[] args = userInput.split(" ");
        List<String> argsList = Arrays.asList(args);
 
-       //i=1 so that it skips 'deadline'
        int byIndex = -10;
        for (int i=1; i<argsList.size(); i++) {
            if (argsList.get(i).equals("/by")) {
@@ -88,7 +87,6 @@ public class TaskManager {
        ui.printTaskAdded(deadline);
    }
 
-   //EVENT
    public void processEventCommand(String userInput, UserInterface ui) {
         Validator.ValidationResult validation = Validator.validateEventCommand(userInput);
 
@@ -122,6 +120,22 @@ public class TaskManager {
        ui.printTaskAdded(event);
    }
 
+    public void processDeleteCommand(String userInput, UserInterface ui) {
+        Validator.ValidationResult validation = Validator.validateDeleteCommand(userInput, tasks);
+
+        if (!validation.isValid()) {
+            ui.printValidationError(validation.getErrorMessage());
+            ui.printValidInputDelete();
+            return;
+        }
+
+        int deleteIndex = Integer.parseInt(userInput.split(" ")[1])-1;
+        Task deletedTask = tasks.get(deleteIndex);
+        tasks.remove(deletedTask);
+
+        ui.printTaskDeleted(deletedTask);
+    }
+
     public List<Task> getTasks() {
         return new ArrayList<>(tasks);
     }
@@ -129,5 +143,7 @@ public class TaskManager {
     public String getTaskSubstring(String userInput) {
         return userInput.substring(userInput.split(" ")[0].length()+1); //skips the keyword
     }
+
+
 
 }

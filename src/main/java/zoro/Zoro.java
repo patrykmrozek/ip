@@ -21,7 +21,7 @@ public class Zoro {
         this.ZoroState = State.MENU;
     }
 
-    public void run() {//the only function that has to be run in main
+    public void run() {
         try {
             while (ZoroState != State.EXIT) {
                 ZoroState = handleState(ZoroState);
