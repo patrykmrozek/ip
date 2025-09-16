@@ -122,6 +122,21 @@ public class TaskManager {
        ui.printTaskAdded(event);
    }
 
+    public void processDeleteCommand(String userInput, UserInterface ui) {
+            Validator.ValidationResult validation = Validator.validateDeleteCommand(userInput, tasks);
+                if (!validation.isValid()) {
+                    ui.printValidationError(validation.getErrorMessage());
+                    ui.printValidInputDelete();
+                    return;
+                }
+
+                    int deleteIndex = Integer.parseInt(userInput.split(" ")[1])-1;
+            Task deletedTask = tasks.get(deleteIndex);
+            tasks.remove(deletedTask);
+
+                    ui.printTaskDeleted(deletedTask);
+        }
+
     public List<Task> getTasks() {
         return new ArrayList<>(tasks);
     }
