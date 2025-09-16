@@ -11,13 +11,16 @@ import zoro.validation.Validator;
 
 public class TaskManager {
     private final List<Task> tasks; //initialize to a List so that it works flexibly with any 'list'
+    private final DataManager dataManager;
 
     public TaskManager() {
+        this.dataManager = new DataManager();
         this.tasks = new ArrayList<>();
     }
 
     public void addTask(Task task) {
         tasks.add(task);
+        dataManager.saveTasks(tasks);
     }
 
     //TTODO
@@ -48,7 +51,7 @@ public class TaskManager {
 
         String[] args = userInput.split(" ");
 
-        int index = Integer.parseInt(args[1])-1; //get the index of the task the user wants to mark
+        int index = Integer.parseInt(args[1])-1;
         tasks.get(index).toggleDone();
         if  (tasks.get(index).isDone()) {
             ui.printTaskMarked(tasks.get(index).getDescription());
